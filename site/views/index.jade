@@ -1,50 +1,28 @@
 extends layout
 
 block content
-  div.header.media
-   div.media-figure 
-     #[a(href="http://stardog.com/") #[img(width="217",height="157",src="http://stardog.com/img/stardog.png")]]
-   div.media-body
-     h1.title Stardog Tutorials
+  h1.title Stardog Tutorials 
+  
+  :markdown
+    Welcome to the Stardog Tutorials site. Here you can learn how to use Stardog and associated tools and technologies for a great awesome.
+  
+    ## Beginner
+    
+    * Introduction to RDF and semantic graphs
+    * Introduction to Linked Data
+    * Introduction to REST and Semantic Technology
+    * Introduction to SPARQL
+   
+    ## Intermediate
 
-  div.courses
-    :markdown
-      Welcome to the Stardog Tutorials site. Here you can learn how to use Stardog *for a great awesome*.
-      
-      Need training, support, or other customized help? Visit us at [Complexible](http://complexible.com/). 
-      
-    h2 Beginner
-    p Start with the tutorials in this section to gain a solid footing in the fundamentals.
-    h3 Introduction to RDF and semantic graphs
-    p A basic course on RDF as a semantic graph data model.
-    h3 Introduction to Linked Data
-    p An introduction to the use of RDF semantic graphs as a way to integrate heterogeneous information.
-    h3 Introduction to REST and Semantic Technology
-    p Blah blah blah
-    h3 Introduction to SPARQL
-    p SPARQL is the query language for the RDF graph data model. Learn it.
-    h2 Intermediate
-    p Now you're ready to model data with OWL and create smart systems with rules and constraints.
-    h3 Introduction to OWL
-    p Learn to build smart models of information that are useful and reusable.
-    h3 Integrity Constraint Validation
-    p Data quality...something
-    h3 Introduction to SWRL and Stardog Rules
-    p I don't know anymore.
-    h3 A Deep Dive into SPARQL 
-    p OMG so many words!
-    h2 Advanced
-    p something something you are so awesome
-    h3 Introduction to R2RML and virtual graphs
-    p Integrate relational data with declarative mappings blah blah
-    h3 Advanced Ontology Development 
-    p blah blah blah
-    h3 Ontology-based Data Access
-    p blah blah blah
-    h3 Programming with Stardog
-    p blah blah SNARL Sesame oh my!
-        
-  div.footer.media
-   span.media-figure
-     #[img(height="99",width="120",src="http://complexible.com/img/l-b.png")]
-   p.media-body &copy; 2010&ndash;2015 #[a(href="http://complexible.com/") Complexible Inc]
+    * Introduction to OWL
+    * Integrity Constraint Validation
+    * Introduction to SWRL
+    * SPARQL Overview
+    
+    ## Advanced
+    
+    * Introduction to R2RML and virtual graphs
+    * Ontology Development
+    * Ontology-based Data Access
+    * Programming with Stardog
