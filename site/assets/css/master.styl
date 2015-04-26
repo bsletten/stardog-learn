@@ -33,12 +33,15 @@ c-base-text = md-grey-800
 c-section-center = 1000px
 c-story-center = c-section-center 
 c-nav-font = Texta-Black
+c-mobile = 400px
 
 *
   box-sizing: border-box
   
 body
   font-size c-base-font-size
+  +below(c-mobile)
+    font-size (c-base-font-size / 1.45)
   line-height c-line-height
   font-family Texta-Regular
   font-style normal
@@ -46,12 +49,19 @@ body
   color c-base-text 
   background md-blue-200
   margin (c-base-size * 3)
+  +below(c-mobile)
+    margin c-base-size
+    line-height (c-line-height / 1.5)
   //flexbox sticky footer
   display flex
   min-height 100vh
   flex-direction column
   //end fbsf
 
++below(c-mobile)
+  #topdog, #bottomdog
+    display none
+    
 div.header, div.footer
   background md-blue-100
   padding c-base-size
@@ -59,14 +69,17 @@ div.header, div.footer
 div.courses
   background md-blue-50
   padding c-base-size
-  ul
-    ul square
-    li
-      color md-grey-500
    
 h1.title
-  font-size (c-base-size * 3.5)
-  font-weight bold
+  font-size c-base-size
+  font-weight normal
+  +below(c-mobile)
+    font-size (c-base-size / 1.33)
+    font-weight bold 
+    font-family Texta-Thin
+  +above(1000px)
+    font-size (c-base-size * 3.5)
+    font-weight bold
   font-family Texta-Black
   color c-base-text
 
@@ -74,7 +87,7 @@ h1,h2
   color md-blue-800
 h3,h4
   color md-blue-500
-  
+//make these more responsive   
 h1
   h1()
 h2
@@ -83,7 +96,6 @@ h3
   h3()
 h4
   h4()
-  
 .media
   display flex
   align-items flex-start
@@ -101,7 +113,6 @@ h4
 .media--reverse > .media-figure
   order 1
   margin 0 0 0 1em
-
 a
   text-decoration none
   font-weight normal
