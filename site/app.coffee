@@ -1,5 +1,6 @@
 axis         = require 'axis'
 rupture      = require 'rupture'
+jeet         = require 'jeet'
 autoprefixer = require 'autoprefixer-stylus'
 js_pipeline  = require 'js-pipeline'
 css_pipeline = require 'css-pipeline'
@@ -13,7 +14,7 @@ module.exports =
   ]
 
   stylus:
-    use: [axis(), rupture(), autoprefixer()]
+    use: [axis(), jeet(), rupture(), autoprefixer()]
     sourcemap: true
 
   'coffee-script':

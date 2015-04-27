@@ -1,6 +1,5 @@
-//debug()
 @import '_settings'
-//@import 'jeet'
+@import 'jeet'
 @import '_colors'
 
 @import url("//hello.myfonts.net/count/2d95c0");
@@ -51,35 +50,42 @@ body
   margin (c-base-size * 3)
   +below(c-mobile)
     margin c-base-size
-    line-height (c-line-height / 1.5)
+    line-height (c-line-height / 2)
   //flexbox sticky footer
   display flex
   min-height 100vh
   flex-direction column
   //end fbsf
-
-+below(c-mobile)
-  #topdog, #bottomdog
+.toplogo
+  margin-right auto
+  margin-left auto
+  width 200px
+  +below(c-mobile)
     display none
-    
 div.header, div.footer
   background md-blue-100
   padding c-base-size
-  
 div.courses
   background md-blue-50
   padding c-base-size
-   
+div.course-listings
+  stack()
+  @media (min-width: 500px)
+    div.course
+      col(1/2, cycle: 2)
+p.small
+  font-size (c-base-font-size / 1.5)
 h1.title
-  font-size c-base-size
   font-weight normal
+  text-align center
   +below(c-mobile)
-    font-size (c-base-size / 1.33)
+    font-size (c-base-size / 1.5)
     font-weight bold 
     font-family Texta-Thin
   +above(1000px)
-    font-size (c-base-size * 3.5)
+    font-size (c-base-size * 5)
     font-weight bold
+    line-height (c-line-height / 5)
   font-family Texta-Black
   color c-base-text
 
