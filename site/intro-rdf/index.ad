@@ -1,0 +1,77 @@
+= {title}
+:title: Stardog Tutorial
+:subtitle: Introduction to RDF
+:revnumber: {version}
+:toc: right 
+:toc-title: 
+:toclevels: 1 
+:experimental:
+:source-highlighter: highlightjs
+:page-layout: base
+:page-javascripts: [view-result]
+:description: Stardog is a fast, lightweight graph database that supports SPARQL, RDF, OWL, and user-defined rules.
+:compat-mode!:
+:last-update-label!:
+:doctype: article
+:docinfo:
+:table-caption:
+:example-caption:
+:figure-caption:
+:idprefix!:
+:imagesdir: optimized-img/
+:linkattrs:
+:base-url: http://docs.stardog.com/
+//:cache-uri:
+:sectlinks:
+
+== RDF, the Resource Description Framework
+
+=== What is it?
+
+=== What is it for?
+
+=== Graph Data Model
+
+=== Oriented around Statements
+
+=== A Set of Statements is a Graph
+
+=== RDF Terms
+
+=== IRIs
+
+=== Literals
+
+=== Blank Nodes
+
+=== Valid RDF Statements
+
+=== RDF Datasets
+
+=== RDF Vocabularies
+
+==== Popular Examples
+
+=== Exchanging RDF Graphs
+
+=== RDFa
+
+=== JSON-LD
+
+==== JSON-LD Context
+
+=== Turtle
+
+=== NTriples & NQuads
+
+=== References
+
+.Image caption
+image::image-file-name.png[I am the image alt text.]
+
+This is another paragraph.footnote:[I am footnote text and will be rendered at the bottom of the article.]
+
+.Example block title
+====
+Content in an example block is subject to normal substitutions.
+====
