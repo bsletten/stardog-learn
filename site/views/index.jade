@@ -1,77 +1,52 @@
 extends layout
 block title 
-  | Learn Stardog with 12 Tutorials from Complexible Inc
-
-mixin bar(u)
-  p #[a(href=u) #[img(title="Dive in!",height="24",width="24",src="/img/pen39.png")]] #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")]
-
-mixin abar(u)
-  p #[a(href=u) #[img(title="Dive in!",height="24",width="24",src="/img/pen39.png")]] #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")]
-
-mixin ibar(u)
-  p #[a(href=u) #[img(title="Dive in!",height="24",width="24",src="/img/pen39.png")]] #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")]
+  | Learn Stardog with Official Tutorials from Complexible Inc
 
 block content
   div.header
    div.toplogo 
-    #[a(href="http://stardog.com/") #[img(id="topdog", width="217", height="157",src="/img/stardog.png")]]
-   h1.title Learn Stardog
+     #[a(href="http://stardog.com/") #[img(id="topdog",width="217",height="157",src="/img/stardog.png")]]
+   h1.title Learn Stardog Now!
 
   div.courses
     :markdown
       Welcome to Stardog tutorials. Here you can learn how to use
       Stardog, the semantic graph database. Need enterprise training or support?
-      Visit us at [Complexible](http://complexible.com/).
+      Visit us at [Complexible](http://complexible.com/). 
+   
+    p The tutorials are divided into #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] Beginner, #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] Intermediate, and #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] Advanced.
       
     div.course-listings
       div.course
-        h3  Introduction to RDF
+        h3  #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] #[a(href="/intro-rdf") Introduction to RDF & Linked Data]
         p A basic course on RDF as a semantic graph data model. If you're new to Stardog, start here.
-        +bar('/intro-rdf')
       div.course
-        h3  Introduction to Linked Data
-        p An introduction to the use of RDF semantic graphs as a way to integrate heterogeneous information.
-        +bar('/linked-data')
-      div.course
-        h3  Introduction to REST
-        p RDF is all about modeling information using hypertext resources; REST is all about using hypertext as the engine of application state.
-        +bar('/rest')
-      div.course
-        h3  Introduction to SPARQL
+        h3 #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] #[a(href="/intro-sparql") Introduction to SPARQL]
         p SPARQL is the query language for the RDF graph data model. The syntax will be slightly familiar to SQL people.
-        +bar('/sparql')
       div.course
-        h3  Introduction to OWL
+        h3  #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/owl2-rules") OWL 2 & Rules]
         p Learn to build smart models of information that are useful and reusable with OWL, the leading standard for formal models for graphs.
-        +ibar('/intro-owl')
       div.course
-        h3  Integrity Constraint Validation
+        h3 #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/icv") Integrity Constraint Validation]
         p Improve data quality using declarative semantics in Stardog; use closed-world reasoning to keep yr graph data perfect. 
-        +ibar('/intro-icv')
       div.course
-        h3  Introduction to Rules 
-        p Stardog supports SWRL and Stardog Rules Syntax for user-defined rules; push complex graph processing onto Stardog, where it belongs. 
-        +ibar('/intro-rules')
-      div.course
-        h3  Intermediate SPARQL 
+        h3 #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/intermediate-sparql") Intermediate SPARQL]
         p Dive deeper into SPARQL and learn how to query models, use rules and axioms to simplify queries, and other advanced topics. 
-        +ibar('/sparql2')
       div.course
-        h3  Introduction to R2RML 
+        h3 #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/skos-prov") SKOS & PROV]
+        p W3C vocabularies for lightweight ontologies and provenance are key to reference data, workflow, and other semantic graph use cases.
+      div.course
+        h3  #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/r2rml") R2RML & Virtual Graphs]
         p Integrate relational data with declarative mappings; make enterprise data part of the Big Graph.  
-        +abar('/r2rml')
       div.course
-        h3 Advanced Ontology Development 
+        h3 #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/advanced-owl") Advanced Ontology Development]
         p Using OWL in anger requires a deeper understanding of Logic 101 and an understanding of inference, explanation, and the open world assumption. 
-        +abar('/advanced-owl')
       div.course 
-        h3 Ontology-based Data Access
+        h3 #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/obda") Ontology-based Data Access]
         p OBDA pulls it all together, showing you how to master enteprise data with formal models, rules, and SPARQL using Stardog.
-        +abar('/odba')
       div.course 
-        h3 Programming with Stardog
+        h3 #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/programming") Programming with Stardog]
         p Shows you how to program Stardog using Java or any JVM-based language; covers SNARL, Sesame, and Jena. 
-        +abar('/stardog-java')
 
   div.footer.media
    span.media-figure #[img(id="bottomdog", height="99",width="120",src="/img/l-b.png")]

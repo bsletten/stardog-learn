@@ -62,30 +62,40 @@ body
   width 200px
   +below(c-mobile)
     display none
-div.header, div.footer
-  background md-blue-100
+div.header,
+div.footer
+  background white 
   padding c-base-size
 div.courses
   background md-blue-50
   padding c-base-size
 div.course-listings
   stack()
+  div.course
+    img
+      margin-right 0
+    p
+      margin-left 0
   @media (min-width: 500px)
     div.course
       col(1/2, cycle: 2)
+      img
+        margin-right 10px
+      p
+        margin-left 38px
 p.small
   font-size (c-base-font-size / 1.5)
 h1.title
-  font-weight normal
+  font-weight normal 
   text-align center
   +below(c-mobile)
     font-size (c-base-size / 1.5)
     font-weight bold 
     font-family Texta-Thin
   +above(1000px)
-    font-size (c-base-size * 5)
+    font-size (c-base-size * 3.5)
     font-weight bold
-    line-height (c-line-height / 5)
+    line-height (c-line-height / 3.5)
   font-family Texta-Black
   color c-base-text
 
@@ -120,5 +130,5 @@ h4
   order 1
   margin 0 0 0 1em
 a
-  text-decoration none
-  font-weight normal
+  text-decoration underline 
+  color md-blue-500
