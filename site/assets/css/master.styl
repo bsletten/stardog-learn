@@ -40,7 +40,7 @@ c-mobile = 400px
 body
   font-size c-base-font-size
   +below(c-mobile)
-    font-size (c-base-font-size / 1.45)
+    font-size (c-base-font-size / 1.1)
   line-height c-line-height
   font-family Texta-Regular
   font-style normal
@@ -49,8 +49,8 @@ body
   background md-blue-200
   margin (c-base-size * 3)
   +below(c-mobile)
-    margin c-base-size
-    line-height (c-line-height / 2)
+    margin c-base-size 
+    line-height (c-line-height / 1.5)
   //flexbox sticky footer
   display flex
   min-height 100vh
@@ -62,13 +62,23 @@ body
   width 200px
   +below(c-mobile)
     display none
-div.header,
-div.footer
+div.theader,
+div.tfooter
+  background md-blue-50
+  padding c-base-size
+div.header
   background white 
   padding c-base-size
+div.footer
+  background white
+  padding c-base-size
+  padding-top 5px 
 div.courses
   background md-blue-50
   padding c-base-size
+div.tutorial
+  padding c-base-size
+  background white
 div.course-listings
   stack()
   div.course
@@ -84,21 +94,44 @@ div.course-listings
       p
         margin-left 38px
 p.small
-  font-size (c-base-font-size / 1.5)
-h1.title
+  font-size (c-base-font-size / 1.15)
+.centered
+  text-align center
+h1.title,
   font-weight normal 
   text-align center
   +below(c-mobile)
-    font-size (c-base-size / 1.5)
+    font-size (c-base-size * 1.25)
     font-weight bold 
-    font-family Texta-Thin
+    font-family Texta-Regular
+    line-height 0
   +above(1000px)
     font-size (c-base-size * 3.5)
     font-weight bold
     line-height (c-line-height / 3.5)
   font-family Texta-Black
   color c-base-text
-
+h1.tutorial-title
+  text-align center
+  font-size (c-base-size * 2)
+  color c-base-text
+  font-family Texta-Black
+  padding 0
+  line-height 0
+h2.tutorial-subtitle
+  text-align center
+  font-size (c-base-size * 2.5)
+  font-weight bold
+  font-family Texta-Black
+  color md-blue-600
+  padding 0
+  line-height c-line-height * 2.5
+h3.version-date
+  color md-red-700
+  text-align center
+  font-size (c-base-size)
+  line-height (c-base-size)
+//debug()
 h1,h2
   color md-blue-800
 h3,h4
@@ -134,3 +167,5 @@ a
 h3 a
   text-decoration underline 
   color md-blue-500
+ul
+  ul square 

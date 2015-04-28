@@ -1,77 +1,251 @@
-= {title}
-:title: Stardog Tutorial
-:subtitle: Introduction to RDF
-:revnumber: {version}
-:toc: right 
-:toc-title: 
-:toclevels: 1 
-:experimental:
-:source-highlighter: highlightjs
-:page-layout: base
-:page-javascripts: [view-result]
-:description: Stardog is a fast, lightweight graph database that supports SPARQL, RDF, OWL, and user-defined rules.
-:compat-mode!:
-:last-update-label!:
-:doctype: article
-:docinfo:
-:table-caption:
-:example-caption:
-:figure-caption:
-:idprefix!:
-:imagesdir: optimized-img/
-:linkattrs:
-:base-url: http://docs.stardog.com/
-//:cache-uri:
-:sectlinks:
-
-== RDF, the Resource Description Framework
-
-=== What is it?
-
-=== What is it for?
-
-=== Graph Data Model
-
-=== Oriented around Statements
-
 === A Set of Statements is a Graph
+
+* Graphs are usually formalized as a set of vertices and edges: `{V,E}`
+* RDF graphs are similarly formalized as a set of RDF statements, that is, a set of subjects, predicates, and objects.
+* But what are they?
 
 === RDF Terms
 
-=== IRIs
+* More precisely, RDF terms are organized into three types:
+  1. URIs/IRIs--often just called "resources", "individuals", or "instances"
+  1. Literals
+  1. Blank nodes
+* We'll talk more about each one in turn.
+
+=== URIs/IRIs
+
+* RDF uses URIs to label resources, including nodes and edges.
+* You are already familiar with URIs, which are defined by https://www.ietf.org/rfc/rfc3987.txt[RFC 3987].
+* Here are some examples of URIs, any or all of which could be used to label RDF nodes or edges:
+[source,text]
+----
+ftp://ftp.is.co.za/rdf/rfc1808.txt
+http://stardog.com/ <1>
+ldap://[2001:db8::7]/c=GB?objectClass?one
+mailto:John_Doe@example.com <2>
+news:comp.infosystems.www.servers.unix
+tel:+1-202-408-8770 <3>
+telnet://127.0.0.1/
+ssh://192.0.2.16:85/
+urn:oasis:names:specification:docbook:dtd:xml:4.1.2 <4>
+----
+<1> a web browser
+<2> an email client
+<3> a telephony system
+<4> just a name
+
+Some of these URIs can be used with specific software programs to retrieve other
+information or to access a sytem, while others are merely names.
 
 === Literals
 
-=== Blank Nodes
+* RDF treats literal datatype values somewhat specially
+* RDF uses many types from the XML Schema type system
+* Some examples include:
 
-=== Valid RDF Statements
+[source,text]
+----
+"1"^^xsd:integer
+"Hola"@es
+----
 
-=== RDF Datasets
+* Literals consist of two or three (syntactic) elements in RDF:
+
+1. a lexical form ("1" or "Hola")
+2. an identifier that specifies what the what datatype the lexical form belongs to or its "value space"; these identifiers are URIs
+3. optionally, if the literal is a string, a language tag
+
+=== Blank Nodes, 1
+
+* Sometimes nodes exist in a graph but do not have a label that is meaningful outside the graph
+* RDF calls these "blank nodes" because they only have temporary labels that are scoped to the graph in which they occur
+* Blank nodes aren't persistent or (very) portable
+* They are completely dependent on some syntax for RDF or upon some software implementation
+
+=== Blank Nodes, 2
+
+* Despite these limitations, they can be useful
+* Consider a case where a person knows that she has two biological parents, but she doesn't know their names
+* She may know many other things about them, but not their names
+* It can be useful to have (effectively) unnamed nodes in a graph
+
+=== Blank Nodes, 3
+
+image::intro-rdf-mona-lisa-blank-node.jpg["Blank Node"]
+
+* Consider this (contrived) example:
+
+  There is a cypress tree depicted in the background of The Mona Lisa; we might want to say, in our graph about The Mona Lisa, that it depicts a cypress tree in the background. But what should we call the node that represents the cypress tree? We might use a blank node to avoid having to worry too much about the label for this node.
+
+* You can think about blank nodes as the sort of thing that results from calling Clojure's `(gensym)`, a function that "returns a new symbol with a unique name".
+
+=== Valid RDF Statements, 1 
+
+* RDF imposes a few restrictions on the ways in which RDF terms can be used to form RDF statements:
+1. a subject can be either a URI or a blank node
+1. a predicate (i.e., an edge) can only be a URI
+1. an object can be a URI, Literal, or a blank node
+
+=== Valid RDF Statements, 2
+
+image::valid-rdf-statement.png["Valid RDF Statement"]
+
+=== RDF Graphs & Datasets
+
+* Now we can understand that RDF graphs are sets of valid RDF triples
+
+* An RDF dataset is a kind of RDF graph, often synonymous with a specific database in, say, Stardog:
+
+** an RDF graph
+** optionally, one or more named subgraphs, aka "named graphs"
+** at most one *unnamed* or default graph
+
+* RDF datasets are most important when using link:/intro-sparql[SPARQL] to query RDF.
+* Often RDF datasets or named graphs correspond to different enterprise data sources that are being integrated.
+
+=== An Example
+
+* For example, what if we're building an app with a lot of information about Mona Lisa and that information comes from many different sources?
+
+image::intro-rdf-mona-lisa-dataset.jpg["Dataset"]
+
+* In this example, we've learned some things about Mona Lisa from a Wikipedia page; we've learned some other things about Bob from another web page, including the fact that Bob is interested in the Mona Lisa.
 
 === RDF Vocabularies
 
+* URIs are (just) labels for nodes and edges; RDF doesn't make any assumptions as to what they represent
+* RDF vocabularies are re-usable semantic information about (types of) resources
+* link:/owl2-rules[RDF Schema] is a vocabulary used to organize RDF graphs into re-usable, machine understandable classes, properties, etc. It's the first modeling language for semantic graphs.
+* RDF Schema (RDFS) supports the definition of RDF vocabularies
+
 ==== Popular Examples
+
+* schema.org
+** developed by Google
+** annotate web pages with RDF
+* Dublin Core
+** Generic metadata properties to describe resources
+* Simple Knowledge Organization System (SKOS)
+** Used to publish taxonomies, thesauri, etc.
 
 === Exchanging RDF Graphs
 
-=== RDFa
+* Without a standardized means to *exchange graph data*, graph databases are just another *data silo*
+** Between apps, systems, organizations, parts of organizations, etc.
+* Graph exchange formats can be a PITA, but they are essential to interoperability
+* We focus on a few here; there are others. Which is the best depends on context and requirements.
+** JSON-LD
+** Turtle family (N-Triples, Turtle, TriG, N-Quads)
+** RDF/XML (included largely for historical reasons)
 
 === JSON-LD
 
+* JSON-LD is a W3C standard for serializing RDF graphs in JSON; which makes it universally supported from mainframes to AWS to mobile devices.
+
+[source,json]
+----
+{
+  "@context": "example-context.json",
+  "@id": "http://example.org/bob#me",
+  "@type": "Person",
+  "birthdate": "1990-07-04",
+  "knows": "http://example.org/alice#me",
+  "interest": {
+              "@id": "http://www.wikidata.org/entity/Q12418",
+              "title": "Mona Lisa",
+              "subject_of": "http://data.europeana.eu/item/04802/243FA8618938F4117025F17A8B813C5F9AA4D619",
+              "creator": "http://dbpedia.org/resource/Leonardo_da_Vinci"
+              }
+}
+----
+
+* JSON-LD adds a few special keys (stuff like `@context, @id, @type` to JSON. Easy peasy.
+
 ==== JSON-LD Context
+
+* The `@context` is like a pointer to the definitions of the terms being used in the JSON-LD.
+
+[source,json]
+----
+{
+  "@context": {
+              "foaf": "http://xmlns.com/foaf/0.1/",
+              "Person": "foaf:Person",
+              "interest": "foaf:topic_interest",
+              "knows": {
+                       "@id": "foaf:knows",
+                       "@type": "@id"
+                       },
+              "birthdate": {
+                           "@id": "http://schema.org/birthDate",
+                           "@type": "http://www.w3.org/2001/XMLSchema#date"
+                           },
+              "dcterms": "http://purl.org/dc/terms/",
+              "title": "dcterms:title",
+ ...
+----
 
 === Turtle
 
+[source,turtle]
+----
+BASE <http://example.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <http://schema.org/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+
+<bob#me>
+  a foaf:Person ;
+  foaf:knows <alice#me> ;
+  schema:birthDate "1990-07-04"^^xsd:date ;
+  foaf:topic_interest wd:Q12418 .
+
+wd:Q12418
+  dcterms:title "Mona Lisa" ;
+  dcterms:creator <http://dbpedia.org/resource/Leonardo_da_Vinci> .
+
+<http://data.europeana.eu/item/04802/243FA8618938F4117025F17A8B813C5F9AA4D619>
+  dcterms:subject wd:Q12418 .
+----
+
 === NTriples & NQuads
 
-=== References
+=== RDF/XML
 
-.Image caption
-image::image-file-name.png[I am the image alt text.]
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:schema="http://schema.org/">
 
-This is another paragraph.footnote:[I am footnote text and will be rendered at the bottom of the article.]
+<rdf:Description rdf:about="http://example.org/bob#me">
+                 <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+                 <schema:birthDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1990-07-04</schema:birthDate>
+                 <foaf:knows rdf:resource="http://example.org/alice#me"/>
+                 <foaf:topic_interest rdf:resource="http://www.wikidata.org/entity/Q12418"/>
+</rdf:Description>
 
-.Example block title
-====
-Content in an example block is subject to normal substitutions.
-====
+<rdf:Description rdf:about="http://www.wikidata.org/entity/Q12418">
+                 <dcterms:title>Mona Lisa</dcterms:title>
+                 <dcterms:creator rdf:resource="http://dbpedia.org/resource/Leonardo_da_Vinci"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://data.europeana.eu/item/04802/243FA8618938F4117025F17A8B813C5F9AA4D619">
+                 <dcterms:subject rdf:resource="http://www.wikidata.org/entity/Q12418"/>
+</rdf:Description>
+
+</rdf:RDF>
+----
+
+== Quiz
+
+Take a quiz:
+
+https://jquizzy.com/h/KrkWdEJn/nlQobKZM
+
+<script type="text/javascript" id="jqz-nlQobKZM-s">!function(){var e=document.getElementById("jqz-nlQobKZM-s"),t=document.createElement("script");t.async=!0,t.id="jqz-nlQobKZM",e.parentNode.insertBefore(t,e),t.src="https://jquizzy.com/static/KrkWdEJn/build/nlQobKZM.js"}();</script>

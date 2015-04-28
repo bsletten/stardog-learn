@@ -1,0 +1,87 @@
+extends ../views/tutorial
+
+block subtitle
+  | Introduction to RDF
+
+block version-date
+  | 1 May 2015, v. 1.0
+  
+block content
+
+  div.tutorial
+    :markdown
+      ### What is RDF?
+      * A graph data model
+      * A semantic graph data model, that is, machine-readable semantics used to decorate graph nodes and edges with additional meaning
+      * An application-agnostic framework for representing information about resources
+      * A set of concrete syntaxes for exchanging graphs between systems, applications, organizations, etc
+      * A W3C recommendation since 2004
+      
+      ### What is it good for?
+      * Integrate heterogeneous enterprise information into a semantic graph
+      * Enrich semantic graphs by linking them to 3rd party datasets
+      * Standards-compliant means to exchange data between apps, organizations, systems
+      
+      ### Graph Data Model
+      * An RDF graph is a set of RDF statements
+      * An RDF statement (sometimes called an "RDF triple") is a node, a directed edge, and a node.
+      * Conventionally the parts of an RDF statement are called the "subject" (node), "predicate" (edge), and "object" (node).
+      * The object of an RDF statement may also be a literal datatype value ("10" or `true`).
+
+    p @fixme
+    p #[img(src="/img/intro-rdf-statement.png",width="382",height="167",alt="Figure 1")]
+    
+    :markdown
+      ### Statement-oriented Graphs
+      * RDF is oriented around RDF statements, which we sometimes note as 3-tuples (or "triples"): `{subject, predicate, object}`
+      * Here are some (informal) examples of RDF statements:
+      ``` auto
+      <Bob> <is a> <person>
+      <Bob> <is a friend of> <Alice>
+      <Bob> <was born on> <the 4th of July, 1990>
+      <Bob> <is interested in> <Mona Lisa>
+      <Mona Lisa> <was created by> <Leonardo da Vinci>
+      <La Joconde à Washington> <is a> <video>
+      <La Joconde à Washington> <is about> <Mona Lisa>
+      ```
+      * These statements actually form a graph.
+      
+    p #[img(src="/img/intro-rdf-mona-lisa-graph.jpg")]
+    
+    :markdown
+      ### An RDF Graph is a Set of Statements
+      * Graphs are usually formalized as a set of vertices and edges: `{V,E}`
+      * RDF graphs are similarly formalized as a set of RDF statements, that is, a set of subjects, predicates, and objects.
+      * The legal values in each position are determined by RDF Terms.
+      ### RDF Terms
+      RDF terms are organized into three types:
+      1. URIs/IRIs, usually called "resources", "individuals", or "instances"...We will just say URIs in the rest of this tutorial when we mean IRIs.
+      2. Literals
+      3. Blank nodes
+      ### URIs
+      * RDF uses URIs to label resources, including nodes and edges.
+      * You are already familiar with URIs, which are defined by [RFC 3987](https://www.ietf.org/rfc/rfc3987.txt).
+      * Here are some examples of URIs, any or all of which could be used to label RDF nodes or edges:
+      ``` auto
+      ftp://ftp.is.co.za/rdf/rfc1808.txt
+      http://stardog.com/
+      ldap://[2001:db8::7]/c=GB?objectClass?one
+      mailto:John_Doe@example.com
+      news:comp.infosystems.www.servers.unix
+      tel:+1-202-408-8770 
+      telnet://127.0.0.1/
+      ssh://192.0.2.16:85/
+      urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+      ```
+      
+    :markdown
+      ### Literals
+      ### Blank Nodes
+      ### Valid RDF Statements
+      ### RDF Graphs & Datasets
+      #### An Example
+      ### RDF Vocabularies
+      #### Popular Examples
+      ### Exchanging RDF Graphs
+      ### JSON-LD
+      ### Turtle
