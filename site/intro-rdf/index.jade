@@ -28,11 +28,12 @@ block content
       * Conventionally the parts of an RDF statement are called the "subject" (node), "predicate" (edge), and "object" (node).
       * The object of an RDF statement may also be a literal datatype value ("10" or `true`).
 
-    p @fixme
     p #[img(src="/img/intro-rdf-statement.png",width="382",height="167",alt="Figure 1")]
     
     :markdown
       ### Statement-oriented Graphs
+    p #[img(src="/img/intro-rdf-mona-lisa-graph.jpg")]
+    :markdown
       * RDF is oriented around RDF statements, which we sometimes note as 3-tuples (or "triples"): `{subject, predicate, object}`
       * Here are some (informal) examples of RDF statements:
       ``` auto
@@ -45,19 +46,18 @@ block content
       <La Joconde à Washington> <is about> <Mona Lisa>
       ```
       * These statements actually form a graph.
-      
-    p #[img(src="/img/intro-rdf-mona-lisa-graph.jpg")]
-    
     :markdown
       ### An RDF Graph is a Set of Statements
       * Graphs are usually formalized as a set of vertices and edges: `{V,E}`
       * RDF graphs are similarly formalized as a set of RDF statements, that is, a set of subjects, predicates, and objects.
       * The legal values in each position are determined by RDF Terms.
+    :markdown
       ### RDF Terms
       RDF terms are organized into three types:
-      1. URIs/IRIs, usually called "resources", "individuals", or "instances"...We will just say URIs in the rest of this tutorial when we mean IRIs.
+      1. URIs/IRIs, usually called "resources", "individuals", or "instances"...We will just say URIs in the rest of this tutorial, but that always really means "IRIs".
       2. Literals
       3. Blank nodes
+      
       ### URIs
       * RDF uses URIs to label resources, including nodes and edges.
       * You are already familiar with URIs, which are defined by [RFC 3987](https://www.ietf.org/rfc/rfc3987.txt).
@@ -73,15 +73,136 @@ block content
       ssh://192.0.2.16:85/
       urn:oasis:names:specification:docbook:dtd:xml:4.1.2
       ```
+      * One last bit of housekeeping about URIs... While they make data integration easier, they can be hard to deal with since they're often long and fiddly. So often RDF and RDF databases like Stardog use prefixes and qnames instead:
+      ```
+         foo:bar
+         rdf:type
+         owl:sameAs
+         a:b
+      ```
+      * These are just syntactic sugar for full URIs and are used as a convenience.
+      * Stardog has special support for registering these to make yr life easier; see [the docs](http://docs.stardog.com/#_namespace_prefix_bindings).
       
-    :markdown
       ### Literals
+      * RDF treats literal datatype values uniformly as a kind of node
+        * no special cases to treat them as properties of another node, as in property graph systems
+      * RDF uses many types from the XML Schema type system
+      * Some examples include:
+      ``` auto
+      "1"^^xsd:integer
+      "Hola"@es```
+      
+      Literals consist of two or three (syntactic) elements in RDF:
+      
+      1. a lexical form ("1" or "Hola")
+      1. an identifier that specifies what the what datatype the lexical form belongs to or its "value space"; these identifier are URIs
+      1. optionally, a language tag if the literal is a string
+      
       ### Blank Nodes
+
+      * Sometimes nodes exist in a graph but do not have a label that is meaningful outside the graph
+      * RDF calls these "blank nodes" because they only have temporary labels that are scoped to the graph in which they occur
+      * Blank nodes may not be persistent or (very) portable
+        * it depends on what software you're using
+      * They are completely dependent on some syntax for RDF or upon some software implementation
+      
+    p #[img(src="/img/intro-rdf-mona-lisa-blank-node.jpg")]
+    
+    :markdown
+      * Consider this (contrived) example:
+        > There is a cypress tree depicted in the background of The Mona Lisa;
+        an art historian might want to say, in a graph about The Mona Lisa, that
+        it depicts a cypress tree in the background. But what should we call the
+        node that represents the cypress tree? We might use a blank node to
+        avoid having to worry too much about the label for this node.
+      * Sometimes it's just easier not to have to give a URI name for a node.
+      
       ### Valid RDF Statements
+      RDF imposes a few restrictions on the ways in which RDF terms can be used to form RDF statements:
+      1. a subject can be either a URI or a blank node
+      1. a predicate (i.e., an edge) can only be a URI
+      1. an object can be a URI, Literal, or a blank node
+
+    p #[img(src="/img/valid-rdf-statement.png")]
+    
+    :markdown
       ### RDF Graphs & Datasets
-      #### An Example
+      * Now we can understand that RDF graphs are sets of valid RDF triples
+      * An RDF dataset is a kind of RDF graph, often synonymous with a specific database in, say, Stardog:
+        * an RDF graph
+        * optionally, one or more named subgraphs, aka "named graphs"
+        * at most one *unnamed* (i.e., "default") graph
+      * RDF datasets are most important when using [SPARQL](/intro-sparql) to query RDF.
+      * Often RDF datasets or named graphs correspond to different enterprise data sources that are being integrated.
+      * For example, what if we're building an app with a lot of information about Mona Lisa and that information comes from many different sources?
+
+    p #[img(src="/img/intro-rdf-mona-lisa-dataset.jpg")]
+    :markdown
+      * In this example, we've learned some things about Mona Lisa from a Wikipedia page; we've learned some other things about Bob from another web page, including the fact that Bob is interested in the Mona Lisa.
+
       ### RDF Vocabularies
+      * URIs are (just) labels for nodes and edges; RDF doesn't make any assumptions as to what they represent
+      * RDF vocabularies are re-usable semantic information about (types of) resources
+      * [RDF Schema](/owl2-rules) is a vocabulary used to organize RDF graphs into re-usable, machine understandable classes, properties, etc. It's the first modeling language for semantic graphs.
+      * RDF Schema (RDFS) supports the definition of RDF vocabularies
+
       #### Popular Examples
+      * schema.org, developed by Google
+         * annotate web pages with RDF
+      * Dublin Core
+         * Generic metadata properties to describe resources
+      * Simple Knowledge Organization System (SKOS)
+         * Used to publish taxonomies, thesauri, etc.
+  
       ### Exchanging RDF Graphs
+      * Without a standardized means to *exchange graph data*, graph databases are just another *data silo*
+         * Between apps, systems, organizations, parts of organizations, etc.
+      * Graph exchange formats can be a PITA, but they are essential to interoperability
+      * We look at JSON-LD and Turtle here; but there are others. Which is the best depends on context and requirements.
+
       ### JSON-LD
+      * We can use JSON to exchange RDF graphs
+      * JSON-LD is a W3C standard for serializing RDF graphs in JSON; which makes it universally supported from mainframes to AWS to mobile devices.
+      ```json
+       {
+        "@context": "example-context.json",
+        "@id": "http://example.org/bob#me",
+        "@type": "Person",
+        "birthdate": "1990-07-04",
+        "knows": "http://example.org/alice#me",
+        "interest": {
+         "@id": "http://www.wikidata.org/entity/Q12418",
+         "title": "Mona Lisa",
+         "subject_of": "http://data.europeana.eu/item/04802/243FA8618938F4117025F17A8B813C5F9AA4D619",
+         "creator": "http://dbpedia.org/resource/Leonardo_da_Vinci"
+           }
+       }```
+      * JSON-LD adds a few special keys (stuff like `@context, @id, @type`) to JSON.
+
       ### Turtle
+
+      ```turtle
+       BASE <http://example.org/>
+       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+       PREFIX schema: <http://schema.org/>
+       PREFIX dcterms: <http://purl.org/dc/terms/>
+       PREFIX wd: <http://www.wikidata.org/entity/>
+
+       <bob#me>
+          a foaf:Person ;
+          foaf:knows <alice#me> ;
+          schema:birthDate "1990-07-04"^^xsd:date ;
+          foaf:topic_interest wd:Q12418 .
+
+       wd:Q12418
+          dcterms:title "Mona Lisa" ;
+          dcterms:creator <http://dbpedia.org/resource/Leonardo_da_Vinci> .
+
+       <http://data.europeana.eu/item/04802/243FA8618938F4117025F17A8B813C5F9AA4D619>
+          dcterms:subject wd:Q12418 .
+      ```
+     
+    form(action="https://jquizzy.com/h/KrkWdEJn/nlQobKZM",method="get").quiz-form
+      input(type="submit",value="Quiz me!").quiz-button
+
