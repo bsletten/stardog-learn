@@ -95,8 +95,14 @@ div.course-listings
         margin-left 38px
 p.small
   font-size (c-base-font-size / 1.15)
+div.footer > p.small
+  area md-grey-50
+div.tfooter > p.small
+  area none
 .centered
   text-align center
+pre
+  pre()
 h1.title,
   font-weight normal 
   text-align center
@@ -118,6 +124,9 @@ h1.tutorial-title
   font-family Texta-Black
   padding 0
   line-height 0
+  a
+    text-decoration none
+    color c-base-text
 h2.tutorial-subtitle
   text-align center
   font-size (c-base-size * 2.5)
@@ -171,6 +180,7 @@ ul
   ul square
 .quiz-button
   button md-green-500 'large'
+  hover-color md-green-300
 .quiz-form
   padding-top c-base-size 
   margin-top c-base-size
