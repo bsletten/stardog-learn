@@ -4,7 +4,7 @@ html
   head
     meta(charset='utf8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge, chrome=1')
-    meta(name='description', content='Stardog tutorials for learning a great graph awesome!j')
+    meta(name='description', content='Stardog tutorials for learning a great graph awesome!')
     meta(name='author', content= "Complexible Inc")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title
@@ -21,7 +21,10 @@ html
      h3.version-date
        block version-date
     block content
-    
+
+  form(action="http://stardog.com/",method="get").quiz-form
+    input(type="submit",value="Quiz me!").quiz-button
+
   div.tfooter
      div.toplogo #[a(href="http://complexible.com/") #[img(id="bottomdog", height="99",width="120",src="/img/l-b.png")] ]
      p.small &copy; 2010&ndash;2015 #[a(href="http://complexible.com/") Complexible Inc]. #[a(href="http://creativecommons.org/licenses/by-sa/3.0/") Some rights reserved]. Icons #[a(href="http://www.freepik.com/") designed by Freepik].

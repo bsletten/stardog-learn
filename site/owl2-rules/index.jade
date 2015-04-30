@@ -1,0 +1,332 @@
+extends ../views/tutorial
+
+block subtitle
+  | OWL & Rules
+
+block version-date
+  | 1 May 2015, v. 1.0
+  
+block content
+
+p owl:inverseOf and owl:TransitiveProperty are the simplest things for people to understand
+
+p then introduce the notion of a Class, explain why rdf:type is a special kind of property and then go into subClassOf inferences
+
+p we might even first show a SPARQL rule for these axioms and introduce OWL as a simpler way to state same thing
+
+  div.tutorial
+    :markdown
+      ### Introduction
+      Graphs are awesome and can be used to do many awesome things. And graphs, as data structures, can be decorated or described with other languages that...make them better somehow. Procedural code that traverses graphs is awesome but can get very messy, very quickly. Good abstractions between what graphs mean, what code does to and with them, and what domain logic is are necessary. Ontologies are one such abstraction.
+      
+      Declarative manipulations of graphs are often easier, more scalable, and more maintainable than procedural manipulations.
+      
+      ### What is OWL?
+      OWL is a language for creating ontologies. Ontologies are formal logical models that describe some part of the world. It's like a modeling language made from Venn diagrams. Awesome.
+      
+      OWL is a logic language for describing precisely (or "formally") some part of the world. Ontologies are really logical theories and they can be applied to graphs.
+      
+      OWL uses formal logic because computers can process formal logical
+      theories in a way that they cannot process natural language (like this
+      tutorial). The process of computer understanding of an ontology is called
+      "inference" or "reasoning". It's a *core service of Stardog*. The main
+      purpose of reasoning is to make information systems more flexible,
+      adaptable, and to push information processing from software developers to
+      domain experts. Reasoning and ontologies let you solve many problems that
+      would otherwise require software to be developed by software developers.
+      
+      The goal of ontologies is to make data smarter and software dumber (i.e.,
+      more generic).
+    
+      ### The parts of an OWL ontology
+      
+      OWL ontologies are notionally partitioned into two:
+      
+      1. the schema (sometimes called the "TBox" or terminology box)
+      2. the data (sometimes called the "ABox" or assertional box)
+      
+      Stardog supports this distinction by {LINK}
+    
+      ### Relationship to RDF
+      
+      OWL is related to [RDF](/intro-rdf) in a few ways; the most important way
+      is that OWL uses the RDF graph model to serialize ontologies. So
+      ontologies are really formal logical models of graph data; hence,
+      **semantic graph data**.
+     
+      ### Reasoning (aka Inference)
+      
+      Reasoning is a lot like query answering, actually: it's an algorithm that
+      **makes implicit knowledge explicit** by deriving conclusions based on
+      logic and data.
+      
+      In the case of Stardog, reasoning is also:
+      
+      * monotonic
+      * deductive
+      * based on dedicable subsets of first order logic
+      * based on OWL 2 and SWRL
+     
+      #### Why?
+      
+      Used in query answering to loosely couple queries with graphs
+        * also simplifies queries
+        * for example, is `A` an instance of `SuspiciousAccount`?
+        * What is the definition of a suspicious account?
+          * encoded with axioms and rules that precisely define the conditions
+      
+      Detect modeling errors
+        * `VerifiedAccount` and `SuspiciousAccount` are disjoint
+        * No account can be both at the same time...
+        * A modeling axiom or rule that says otherwise is *unsatisfiable*
+        * Instances of *unsatisfiable classes* always indicate modeling or data (or both) errors and are logically inconsistent
+      
+      Draw conclusions about data for analytics, etc
+        * Define conditions of interest declaratively and let reasoning find those instances
+
+      
+      ### Ontology Building Blocks
+      
+      The building blocks of OWL are
+      
+      * individuals (a.k.a., instances (of some class))
+      * properties (a.k.a., roles)
+      * classes (a.k.a, concepts)
+      
+      Plus:
+      
+      * Literals (`1`, "I am a string, not a pipe!", `09/16/2015`)
+      * Datatypes (integers, doubles, strings, dates, etc)
+     
+      We use these (and some other OWL bits) to formally describe some part of
+      the world so that computers can process information about that part of the
+      world.
+      
+      @fixme IMAGE
+      
+      ### Axioms
+      
+      Now we can add axioms, which are **restrictions satisfied by the
+      individuals, properites, and classes of ontology**.
+      
+      They come in several types; the main one are
+      
+      * class and property restrictions
+      * class and property containment relationships
+      * property characteristics
+      * equality assertions
+      
+      @fixme need examples in plain text
+      
+      #### Class & Property Assertions
+      
+      * Individual `A` is an instance of `Cyan` (a class)
+      * Individual `B` is an instance of `Magenta` (a class)
+      * `A` and `B` are related via `Blue` (a class)
+     
+      @fixme IMAGE
+      
+      #### Class & Property Containment
+      
+      * All instances of `Cyan` are also instances of `Yellow`
+      * All pairs in `green` are also in `red`
+      
+      @fixme IMAGE
+     
+      #### Property Characteristics
+      
+      #### Equality Assertions
+      
+      * The individual `roja` is the same as the individual `red`
+      * ...
+      
+      ### Basic Class Expressions
+      
+      When building a formal model, we can work in a top-down or bottom-up (or
+      hybrid) fashion, using the building blocks and then different "connectors"
+      to model things, relationships, etc.
+      
+      Let's look at some of the basic class expressions of OWL.
+      
+      #### Named Classes
+      
+      These are used to represent the main objects in the domain.
+      
+      For example, in a model about corporations and organizations, we might 
+      have named classes like `Employee, Supervisor, Manager, Person, Company,
+      NonProfit, GovtAgency, Organization` and so on.
+     
+      #### Cardinality Restrictions
+      
+      Next we might have some cardinality restrictions, which represent sets of
+      instances that have *at least*, *at most*, or *exactly* some specified
+      number of relationships with other instances or literals.
+      
+      This is how you say that, for example, passenger cars have exactly 4
+      wheels.
+      
+      Or to take our running example:
+      
+      * `worksIn min 2`
+      * `livesIn max 1`
+      * `hasEmployee exactly 50 VicePresident`
+      
+      @fixme commentary
+  
+      ### Properties
+      
+      Every modeling technology lets you say that objects have some
+      properties. OWL has a very rich property system.
+      
+      OWL separates all properties into three buckets:
+      
+      #### Object properties
+      * relate instances to instances
+      * `worksIn, livesIn, hasEmployee`...
+      
+      #### Datatype properties
+      * relate instance to literals (and vice versa)
+      * `name, age, emailAddress`...
+      
+      #### Annotation properties
+      * these are OWL bookkeeping, i.e., builtin
+        properties for documentation purposes which have *no logical meaning* in
+        the model
+      * `rdfs:label, rdfs:comment, rdfs:seeAlso, owl:versionInfo`, etc.
+      
+      So we use properties to relate instances to other instances and to literal
+      values.
+    
+      ### Basic Axioms
+      
+      Now we're ready to show how to combine some of this stuff into basic axioms.
+      
+      #### Class, Property, Type, Domain, Range
+      
+      The most basic axioms are inherited by OWL from RDF Schema. They provide a
+      means to assemble classes and properties into hierarchies or trees.
+      
+      | Construct   	|Syntax   	                  | Description	            | Commentary
+      |---	          |---	                        |---	                    |---
+      | Class  	      | `C rdf:type rdfs:Class`   	| C is an RDF class   	  | C is a graph node type
+      | Property  	  | `P rdf:type rdf:Property`  	| P is an RDF property 	  | P is a graph edge type
+      | type  	      | `I rdf:type C`   	          | I is an instance of C	  | ...
+      | subClassOf  	| `C1 rdfs:subClassOf C`  	  | C1 is a subclass of C   | C1 is specialized C node type
+      | subPropertyOf | `P1 rdfs:subPropertyOf P`  	| P1 is a subproperty of P| P1 is a specialized P edge type
+      | domain  	    | `P rdfs:domain C`  	        | the domain of P is C 	  | P edges connect C nodes  
+      | range  	      | `P rdfs:range C1`  	        | the range of P is C1  	| P edges connect C1 nodes  
+      
+      ##### Assertions
+      
+      Used to specify membership assertions in classes or properties:
+      
+      * `:Paulina rdf:type :Person .`
+      * `:Paulina :bornIn :WashingtonDC .`
+      * `:Paulina :hasBirthYear "2015" .`
+      
+      Paulina was born in Washington, DC, in 2015.
+     
+      ##### Specializing Classes & Properties
+      
+      We use subclass and subproperty to specify containment relationships
+      between pairs of classes or properties. The subclass or subproperty is a
+      specialization of its parent class or property in some respect.
+      
+      * `Employee rdfs:subClassOf Person .`
+        * Every employee is a person; not every person is an employee.
+      * `hasSupervisor rdfs:subPropertyOf hasManager .`
+        * @fixme terrible example
+     
+      ##### Domains & Ranges
+      
+      We use domain and range to specify what types of classes are related by
+      properties in the domain (left-hand side) and range (right-hand side)
+      position.
+      
+      * `worksIn rdfs:domain Employee .`
+        * Employee instances are the subject of the works in relation
+      * `worksIn rdfs:range Organization .`
+        * Organization instances are the object of the works in relation
+      * Putting these two together, we say that works in relations connect employees with organizations
+      * `emailAddress rdfs:range xsd:string`
+        * email address is a datatype property and is represented with a string
+     
+      ##### Inverse Properties
+      
+      Used to say that a property is the inverse of another and vice versa.
+      
+      * `worksIn owl:inverseOf hasEmployee`
+      * `isParentOf owl:inverseOf hasParent`
+     
+      ##### Disjoint Classes
+      
+      Used to say that a pair of classes shares no instances in common. Or, put
+      another way, nothing can be an instance of two disjoint classes.
+      
+      * `Person owl:disjointWith Organization`
+      * `Dog owl:disjointWith Cat`
+      
+      ##### Same As and Distinct Instances
+      
+      Used to specify that a pair of instances denote the same or different
+      things.
+      
+      * `Elvis owl:sameAs ElvisAaronPresley .`
+      * @fixme
+    
+      ### More Axioms
+     
+      There's a lot more in OWL which we won't mention here. Check it out.
+      @fixme
+      * class & property equivalence
+      * complex role inclusions
+      * functional, inverse functional
+      * transitivity
+      * (a)symmetry
+      * (ir)reflexivity
+      
+      ### Rules
+      
+      Stardog supports not only OWL reasoning but also rule reasoning. SWRL is
+      the de facto standard for mixing rules and ontologies, has seamless
+      integration with OWL, and a bunch of other good things going for it.
+      
+      #### SWRL
+      
+      * [Horn rules](http://en.wikipedia.org/wiki/Horn_clause)...come on, read
+        the Wikipedia page, it won't kill you.
+      * Rule bodies can use builtins
+      * SWRL rules are safe
+      
+      Sometimes rules are easier to understand than axioms and they are more
+      expressive, too.
+      
+      SWRL has builtins for comparisons, maths, string manipulations, date,
+      time, and durations. Stardog adds logarithmic and trig functions, degrees
+      and radians, and many others.
+      
+      @fixme FULL LIST HERE
+      
+      ##### Stardog Rules Syntax
+      
+      SWRL is a great rule system but the default syntax is quite
+      terrible. Stardog Rules Syntax is an alternate syntax for SWRL rules
+      that's much simpler to read and write.
+      
+      For example,
+      
+      ``` sparql
+      PREFIX :<http://www.example.org#>
+      IF {
+          ?x rdf:type :Student;
+          hasSupervisor ?y .
+        }
+      THEN {
+          ?y isAdviserOf ?x .
+       } ```
+     
+       @FIXME complete this rules stuff...
+      
+    form(action="",method="get").quiz-form
+      input(type="submit",value="Quiz me!").quiz-button
+  

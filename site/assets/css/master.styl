@@ -145,6 +145,8 @@ h1,h2
   color md-blue-800
 h3,h4
   color md-blue-500
+h5
+  color md-blue-600
 //make these more responsive   
 h1
   h1()
@@ -154,6 +156,8 @@ h3
   h3()
 h4
   h4()
+h5
+  h5()
 .media
   display flex
   align-items flex-start
@@ -184,3 +188,18 @@ ul
 .quiz-form
   padding-top c-base-size 
   margin-top c-base-size
+code
+  font-size (c-base-font-size / 1.125)
+  color md-blue-500
+  background md-grey-100
+table
+  width 100%
+  th
+    text-align left
+    background md-blue-100
+    padding-top (c-base-size / 3)
+    padding-left (c-base-size / 3)
+  tr:nth-child(even)
+    background md-blue-50
+  td
+    padding-left (c-base-size / 3)
