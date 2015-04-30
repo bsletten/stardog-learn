@@ -13,8 +13,23 @@ block content
       Stardog is a **_semantic graph database_** that implements RDF, SPARQL, OWL, rules, and other technologies and standards. This short document is for people who have no idea what any of those things are but who're interested in Stardog anyway!
     
       ## What is a Semantic Graph Database?
-      ### What kinds of problems does it solve well?
+      A graph database is a data storage system that maintains its structured information as a graph rather than as a table or document with key-value pairs. Individual entities are nodes in the graph. The arcs or links in the graph represent relationships between entities or data values such as strings, numbers or dates. Graphs are eminently extensible data structures so it is easy to store arbitrary facts about an entity as new links without affecting the structure of unrelated entities.
+      
+      A semantic graph database is a special kind of graph database where the terms and identifiers used for the nodes and arcs are described to be meaningful to both humans and machines. When standards are used to express the semantics of the terms and relationships, it is easier to reuse existing tools to interpret arbitrary information. It is no longer necessary to write custom software to express or capture entirely new domains.
+      
+      ## What kinds of problems does it solve well?
+      Relational databases are useful for capturing expectations about known and relatively static domains. When the domains are well-understood and don't change very often, they can be efficient and useful for processing information requests. They become less useful for domains that aren't fully understood, change frequently or in situations where you need to connect information from a variety of data sources. Information in documents, spreadsheets, remote services or even other relational systems cannot be integrated to a relational table structure without a significant effort, if at all.
+      
+      Semantic graph databases are useful in all of these scenarios where relational databases fall down. The flexibility of the graph structures allow for arbitrary relationships to be expressed and consumed. Data from other sources can be mapped into the graph more easily than to a table structure. Different types of relationships can be captured including property values, links between nodes, set membership or extension of other terms or links.
+      
+      A semantic graph database that has support for reasoning is also able to infer links and relationships that are not made explicit in the graph. This keeps the knowledgebase stored in such a system generally smaller than it might be in a less capable data store. The inferred relationships can be discovered during the query process so [truth maintenance problems](http://en.wikipedia.org/wiki/Reason_maintenance) are eliminated.
+      
       ## What is RDF?
+      The [Resource Description Framework (RDF)](http://www.w3.org/RDF/) is a [W3C](http://w3.org) standard for representing facts about various resources in a model that lends itself to flexible and easy data exchange on the Web. The standard mixes the flexibility of the graph structure with the benefits of global identifiers to allow for purely portable content describing documents, data, services and concepts and the relationships between them.
+      
+      In addition to the data model and identifiers being standards, the various serialization formats (e.g. [RDF/XML](http://www.w3.org/TR/rdf-syntax-grammar/), [Turtle](http://www.w3.org/TR/turtle/), [N-Triples](http://www.w3.org/TR/n-triples/), [JSON-LD](http://www.w3.org/TR/json-ld/)) are also standards. This allows any RDF-based system to consume RDF from any other system regardless what information is expressed in the graph.
+      
+      Because arbitrary relationships can be expressed through a standard structure using standard identifiers, existing data storage systems don't handle RDF graphs efficiently. Semantic graph databases are well-suited to support this standard and data expressed in a serialized form.
       ## What is SPARQL?
       ## What is OWL?
       ## What are User-defined Rules?
