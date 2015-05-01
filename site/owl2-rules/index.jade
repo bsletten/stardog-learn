@@ -1,4 +1,5 @@
 extends ../views/tutorial
+include ../views/mixins
 
 block subtitle
   | OWL & Rules
@@ -7,16 +8,14 @@ block version-date
   | 1 May 2015, v. 1.0
   
 block content
-
-p owl:inverseOf and owl:TransitiveProperty are the simplest things for people to understand
-
-p then introduce the notion of a Class, explain why rdf:type is a special kind of property and then go into subClassOf inferences
-
-p we might even first show a SPARQL rule for these axioms and introduce OWL as a simpler way to state same thing
-
+  //p owl:inverseOf and owl:TransitiveProperty are the simplest things for people to understand
+  //p then introduce the notion of a Class, explain why rdf:type is a special kind of property and then go into subClassOf inferences
+  //p we might even first show a SPARQL rule for these axioms and introduce OWL as a simpler way to state same thing
   div.tutorial
     :markdown
-      ### Introduction
+      ## Quick Start
+      
+      ## A Deeper Dive
       Graphs are awesome and can be used to do many awesome things. And graphs, as data structures, can be decorated or described with other languages that...make them better somehow. Procedural code that traverses graphs is awesome but can get very messy, very quickly. Good abstractions between what graphs mean, what code does to and with them, and what domain logic is are necessary. Ontologies are one such abstraction.
       
       Declarative manipulations of graphs are often easier, more scalable, and more maintainable than procedural manipulations.
@@ -326,7 +325,5 @@ p we might even first show a SPARQL rule for these axioms and introduce OWL as a
        } ```
      
        @FIXME complete this rules stuff...
-      
-    form(action="",method="get").quiz-form
-      input(type="submit",value="Quiz me!").quiz-button
-  
+    
+    mixin buttons("https://jquizzy.com/h/KrkWdEJn/nlQobKZM")

@@ -1,0 +1,23 @@
+mixin stardog
+  form(action="http://stardog.com/?#download",method="get").download-form
+    input(type="submit",value="Download Stardog").download-button
+  
+mixin buttons(url)
+  div.buttons
+    form(action=url,method="get").quiz-form
+      input(type="submit",value="Quiz me").quiz-button
+    +stardog
+
+mixin install
+  div.install
+    h2 Getting Started <!-- Installing the Tutorial Environment -->
+    ol
+      li Install Stardog
+        pre
+          code
+           $ brew install stardog
+      li Install the tutorial...
+        pre
+          code
+           $ curl -L https://raw.github.com/complexible/stardog-tutorial/master/tools/install.sh | sh
+           $ wget https://raw.github.com/complexible/stardog-tutorial/master/tools/install.sh -O - | sh

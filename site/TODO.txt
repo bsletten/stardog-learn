@@ -1,0 +1,5 @@
+put in cards on front page for courses
+clean up templates
+start all tutorials with examples, which are from a github repo
+run colors past kate
+make tutorial template mobile friendly... responsive images?

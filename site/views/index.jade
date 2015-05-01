@@ -1,4 +1,6 @@
 extends layout
+include mixins
+
 block title 
   | Learn Stardog with Official Tutorials from Complexible Inc
 block content
@@ -10,43 +12,48 @@ block content
   div.courses
     :markdown
       Welcome to Stardog tutorials. Here you can learn how to use
-      Stardog, the semantic graph database. Need enterprise training or support?
+      Stardog, the semantic graph database. 
+      
+      Need enterprise training or support?
       Visit us at [Complexible](http://complexible.com/). 
-   
-    p The tutorials are divided into #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] Beginner, #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] Intermediate, and #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] Advanced.
     
-    h3 #[a(href="/overview") A Brief Overview]
+  +install
+  div.courses
+    h2 Tutorials
+    p They're divided into #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] Beginner, #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] Intermediate, and #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] Advanced.
+
+    h2.course-title #[a(href="/overview") A Brief Overview]
     
     p Start here if you are new to Stardog, RDF, SPARQL, and OWL.
     
     div.course-listings
       div.course
-        h3  #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] #[a(href="/intro-rdf") RDF: Semantic Graph Language]
+        h2.course-title  #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] #[a(href="/intro-rdf") 1. RDF: Semantic Graph Language]
         p A basic course on RDF as a graph data model. Covers the basics of rep;resenting graph data with RDF.
       div.course
-        h3 #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] #[a(href="/intro-sparql") SPARQL: Query Language for Semantic Graphs]
+        h2.course-title #[img(height="24",width="24",src="/img/attach.png",title="Beginner",alt="Beginner")] #[a(href="/intro-sparql") 2. SPARQL: RDF Query Language]
         p SPARQL is the query language for the RDF graph data model. The syntax will be familiar to people familiar with SQL.
       div.course
-        h3  #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/owl2-rules") OWL & Rules]
+        h2.course-title  #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/owl2-rules") 3. OWL & Rules]
         p Learn to build smart models of information that are useful and reusable with OWL, the leading standard for formal models for graphs.
       div.course
-        h3 #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/icv") Integrity Constraint Validation]
+        h2.course-title #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/icv") 4. Integrity Constraint Validation]
         p Improve data quality using declarative semantics in Stardog; use closed-world reasoning to keep yr graph data perfect. 
       div.course
-        h3 #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/intermediate-sparql") Intermediate SPARQL]
+        h2.course-title #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/intermediate-sparql") 5. Intermediate SPARQL]
         p Dive deeper into SPARQL and learn how to query models, use rules and axioms to simplify queries, and other advanced topics. 
       div.course
-        h3 #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/skos-prov") SKOS & PROV]
+        h2.course-title #[img(height="24",width="24",src="/img/technical-drawing2.png",title="Intermediate",alt="Intermediate")] #[a(href="/skos-prov") 6. SKOS & PROV]
         p W3C vocabularies for lightweight ontologies and provenance are key to reference data, workflow, and other semantic graph use cases.
       div.course
-        h3  #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/r2rml") R2RML & Virtual Graphs]
+        h2.course-title  #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/r2rml") 7. R2RML & Virtual Graphs]
         p Integrate relational data with declarative mappings; make enterprise data part of the Big Graph.  
       div.course
-        h3 #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/advanced-owl") Advanced Ontology Development]
+        h2.course-title #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/advanced-owl") 8. Advanced Ontology Development]
         p Using OWL in anger requires a deeper understanding of Logic 101 and an understanding of inference, explanation, and the open world assumption. 
       div.course 
-        h3 #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/obda") Ontology-based Data Access]
+        h2.course-title #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/obda") 9. Ontology-Based Data Access]
         p OBDA pulls it all together, showing you how to master enterprise data with formal models, rules, and SPARQL using Stardog.
       div.course 
-        h3 #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/programming") Programming with Stardog]
+        h2.course-title #[img(height="24",width="24",src="/img/graduate34.png",title="Advanced",alt="Advanced")] #[a(href="/programming") 10. Programming with Stardog]
         p Shows you how to program Stardog using Java or any JVM-based language; covers SNARL, Sesame, and Jena. 

@@ -17,11 +17,10 @@
 
 normalize-css()
 base()
-c-base-font-size = 1.25rem 
-c-base-size = 1.4rem
+c-base-font-size = 1.5rem
+c-base-size = 1.5rem
 c-line-height-factor = 1.5
 c-line-height = (c-base-font-size * c-line-height-factor)
-c-h-margins = 15% 
 c-fuego   = #C13117
 c-spring  = #0C5AA7
 c-spring2 = #4399CE
@@ -47,9 +46,10 @@ body
   font-weight normal
   color c-base-text 
   background md-blue-200
-  margin (c-base-size * 3)
+  margin (c-base-size * 2)
   +below(c-mobile)
-    margin c-base-size 
+    margin c-base-size
+    //margin 0
     line-height (c-line-height / 1.5)
   //flexbox sticky footer
   display flex
@@ -79,6 +79,9 @@ div.courses
 div.tutorial
   padding c-base-size
   background white
+h2.course-title a
+  text-decoration underline 
+  color md-blue-800
 div.course-listings
   stack()
   div.course
@@ -95,31 +98,35 @@ div.course-listings
         margin-left 38px
 p.small
   font-size (c-base-font-size / 1.15)
-div.footer > p.small
-  area md-grey-50
-div.tfooter > p.small
-  area none
 .centered
   text-align center
+div.install
+  background white
+  padding c-base-size
 pre
   pre()
-h1.title,
+h1.title
   font-weight normal 
   text-align center
   +below(c-mobile)
-    font-size (c-base-size * 1.25)
+    font-size (c-base-font-size * 1.25)
     font-weight bold 
     font-family Texta-Regular
     line-height 0
   +above(1000px)
-    font-size (c-base-size * 3.5)
+    font-size (c-base-font-size * 3.5)
     font-weight bold
     line-height (c-line-height / 3.5)
   font-family Texta-Black
   color c-base-text
 h1.tutorial-title
+  +below(c-mobile)
+    font-size c-base-font-size
+    line-height c-line-height
+    font-weight bold 
+    font-family Texta-Regular
   text-align center
-  font-size (c-base-size * 2)
+  font-size (c-base-font-size * 2)
   color c-base-text
   font-family Texta-Black
   padding 0
@@ -128,19 +135,26 @@ h1.tutorial-title
     text-decoration none
     color c-base-text
 h2.tutorial-subtitle
+  +below(c-mobile)
+    font-size c-base-font-size
+    line-height c-line-height
+    font-weight regular
+    font-family Texta-Black
   text-align center
-  font-size (c-base-size * 2.5)
+  font-size (c-base-font-size * 2.5)
   font-weight bold
   font-family Texta-Black
   color md-blue-600
   padding 0
   line-height c-line-height * 2.5
 h3.version-date
+  +below(c-mobile)
+    font-size (c-base-font-size * .95)
+    line-height 0
   color md-red-700
   text-align center
   font-size (c-base-size)
   line-height (c-base-size)
-//debug()
 h1,h2
   color md-blue-800
 h3,h4
@@ -158,6 +172,8 @@ h4
   h4()
 h5
   h5()
+#bottomdog
+  margin-top c-base-size
 .media
   display flex
   align-items flex-start
@@ -177,20 +193,26 @@ h5
   margin 0 0 0 1em
 a
   text-decoration none
-h3 a
-  text-decoration underline 
-  color md-blue-500
 ul
   ul square
 .quiz-button
   button md-green-500 'large'
   hover-color md-green-300
-.quiz-form
+.download-button
+  button md-indigo-500 'large'
+  hover-color md-indigo-300
+  color white
+.quiz-form,
+.download-form
   padding-top c-base-size 
   margin-top c-base-size
+.buttons
+  span()
+  form
+     display inline
 code
-  font-size (c-base-font-size / 1.125)
-  color md-blue-500
+  font-size (c-base-font-size / 1.25)
+  color c-base-text 
   background md-grey-100
 table
   width 100%
@@ -203,3 +225,5 @@ table
     background md-blue-50
   td
     padding-left (c-base-size / 3)
+    code
+      background none
