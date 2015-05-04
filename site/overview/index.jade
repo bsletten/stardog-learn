@@ -4,48 +4,139 @@ block subtitle
   | A Brief Overview
 
 block version-date
-  | 1 May 2015, v. 1.0
+  | 5 May 2015, v. 1.0
   
 block content
 
   div.tutorial
     :markdown
-      Stardog is a **_semantic graph database_** that implements RDF, SPARQL, OWL, rules, and other technologies and standards. This short document is for people who have no idea what any of those things are but who are interested in Stardog anyway!
+      Stardog is a **_semantic graph database_** that implements RDF, SPARQL,
+      OWL, rules, and other technologies and standards. This short document is
+      for people who are interested in Stardog but new to Stardog and to semantic graphs.
     
-      ## What is a Semantic Graph Database?
-      Stardog is a special kind of graph database whose terms and identifiers used for the nodes and arcs can be described to be meaningful to both humans and machines. This allows it to store arbitrary graphs of information from arbitrary domains in interchangeable formats.
+      # What is Stardog?
       
-      Queries run against the graphs match patterns expressed in the graph. When the data is semantically-described and Stardog's reasoning engines are engaged, it is able to infer implicit facts. This allows the stored information to be more compact and flexible to changing business requirements. New rules will yield newly inferred information without having to write custom software.
+      Stardog is a graph database based on a **semantic graph data model**,
+      which is a richer, more expressive data model than avaialble in an
+      ordinary (or "property") graph database. Stardog graph data is enriched
+      with machine-understandable semantics. This data model makes Stardog a
+      **_schema flexible_** database. Stardog is a hybrid of "schemaless" and
+      "schema rigid" NoSQL databases. Some parts of a Stardog graph may be
+      schema-free, while other parts are tightly described and controlled by
+      schema and constraints.
+     
+      ## An Analogy with Programming Languages
       
-      ## What kinds of problems does it solve well?
-      Stardog excels in all of the scenarios where relational databases fall down such as handling poorly-understood or dynamically changing domains, quickly absorbing information from new sources and finding insight that is contained in the data but not explicitly expressed as such.
+      This hybrid relation between schema and data&mdash;which combines the best
+      aspects of both, much like a programming language that is both statically
+      and dynamically typed&mdash;is the key to Stardog's unprecedented
+      agililty. In fact, if you are interested in programming languages, this
+      analogy goes much further: Stardog combines the best of static and dynamic
+      typing for data by including a rich "type system for graph data" that's
+      capable of complex inferences, as well as a declarative rules logic
+      engine.
       
-      The flexibility of the graph structures allow for arbitrary relationships to be represented and consumed. Data from other sources can be mapped into the graph more easily than to a table structure. The various types of relationships that can be captured includes property values, links between nodes, set membership or semantic extension of other terms or links.
+      ## A Simple Example
+      
+      For example, in Stardog a graph node may represent an Employee and the
+      node's edges may represent relationships the employee has (to other
+      employees, to organization units, to the employer, etc). But in a semantic
+      graph database we can also represent the fact that every Employee is also
+      a Person and that people have characteristics, properties, and relations
+      that are both distinct from but related to their identity as
+      employees. Each write to Stardog may add new edges to any Employee node,
+      while the nodes and edges that define Person nodes remain fixed and
+      controlled. Or vice versa.
+     
+      ## Graph Queries?
+      
+      Queries executed against semantic graphs may match explicit *and implicit*
+      patterns expressed in the graph. When the data is semantically-described
+      and Stardog's reasoning engines are engaged, Stardog is able to infer
+      implicit facts. This allows the stored information to be more agile,
+      loosely coupled, and re-usable in the face of changing business
+      requirements. New semantic graph descriptions can yield newly inferred
+      information without the need for custom software.
+      
+      # What kinds of problems does it solve?
+      
+      Stardog excels in scenarios where schema-inflexible systems (like
+      relational databases) and purely schema-less systems (like key-value and
+      document stores) fall down, including handling poorly-understood or
+      dynamically changing domains, quickly absorbing information from new
+      sources and finding insight that is contained in the data but not
+      explicitly expressed as such.
+      
+      The flexibility of semantic graph allows for arbitrary relationships to be
+      represented and consumed. The clarity and "machine assist" from semantics
+      allows confidence and trust in the correctness of data modeling, queries,
+      rules, and software that consumes data from Stardog. Data from other
+      sources can be mapped into the graph more easily than to a table
+      structure. The various types of relationships that can be captured
+      includes property values, links between nodes, set membership or semantic
+      extension of other terms or links, and arbitrary relations and
+      computations captured in rules.
+    
+      # What Next?
+      
+      This is a good place to stop and say that the best way to learn Stardog is to
+      download it and follow along the tutorials on this site.
+     
+      Or if you're interested in the standards behind Stardog that make all of this
+      work, read on for a quick overview.
       
       ## What is RDF?
-      The [Resource Description Framework (RDF)](http://www.w3.org/RDF/) is a [W3C](http://w3.org) standard for representing facts about various resources in a model that lends itself to easy data exchange on the Web. The standard mixes the flexibility of the graph structure with the benefits of global identifiers to allow for purely portable content describing documents, data, services and concepts and the relationships between them.
+      The [Resource Description Framework (RDF)](http://www.w3.org/RDF/) is a
+      [W3C](http://w3.org) standard for representing facts about various
+      resources in a model that lends itself to easy data exchange on the
+      Web. The standard mixes the flexibility of the graph structure with the
+      benefits of global identifiers to allow for portable content
+      describing documents, data, services and concepts and the relationships
+      between them.
       
-      The serialization formats for RDF (e.g. [RDF/XML](http://www.w3.org/TR/rdf-syntax-grammar/), [Turtle](http://www.w3.org/TR/turtle/), [N-Triples](http://www.w3.org/TR/n-triples/), [JSON-LD](http://www.w3.org/TR/json-ld/)) are also standards. This allows any RDF-based system to consume RDF from any other system regardless what information is expressed in the graph.
+      The serialization formats for RDF
+      (e.g. [RDF/XML](http://www.w3.org/TR/rdf-syntax-grammar/),
+      [Turtle](http://www.w3.org/TR/turtle/),
+      [N-Triples](http://www.w3.org/TR/n-triples/),
+      [JSON-LD](http://www.w3.org/TR/json-ld/)) are also standards. This allows
+      any RDF-based system to consume RDF from any other system regardless what
+      information is expressed in the graph.
       
       ## What is SPARQL?
       
-      The [SPARQL Protocol and RDF Query Language (SPARQL)](http://www.w3.org/TR/2013/REC-sparql11-overview-20130321/) is a set of standards for asking questions of RDF graphs or creating new statements from what is there. A SPARQL engine interprets the graph patterns in a query and finds matches in the underlying dataset to use for its results.
+      The [SPARQL Protocol and RDF Query Language
+      (SPARQL)](http://www.w3.org/TR/2013/REC-sparql11-overview-20130321/) is a
+      set of standards for executing queries against RDF graphs. Stardog 
+      interprets the graph patterns in a query and finds matches in the
+      underlying dataset to use for its results.
       
-      The [SPARQL Protocol](http://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/) allows clients to push queries to a server via HTTP GET or POST requests. When the GET method is used, these queries and their results function as a bookmarkable and shareable information resource.
-      
-      Stardog supports the SPARQL 1.1 specifications as well as the ability to use its reasoners to derive implicit facts that are not directly stored in the dataset at query time.
+      Stardog supports the SPARQL 1.1 specifications as well as the ability to
+      use its reasoners to derive implicit facts, that are not directly stored in
+      the dataset, at query time.
       
       ## What is OWL?
       
-      The [Web Ontology Language (OWL)](http://www.w3.org/TR/owl2-overview/) is a formally described ontology language usually expressed in RDF. It builds on the graph data model and adds formal semantics, rich modeling primitives and powerful reasoning capabilities.
+      The [Web Ontology Language (OWL)](http://www.w3.org/TR/owl2-overview/) is
+      a formally described ontology language usually expressed in RDF. It builds
+      on the graph data model and adds formal semantics, rich modeling
+      primitives and powerful reasoning capabilities.
       
-      Stardog supports the OWL 2 specification and its EL, QL and RL profiles.
+      Stardog supports OWL 2.
       
       ## What are User-defined Rules?
       
-      OWL is useful for reasoning about types of resources and deriving results based upon what is axiomatically stored in a graph. This represents only one type of reasoning, however. Stardog is the only graph database that supports a mixture of modified [Semantic Web Rule Language (SWRL)](http://www.w3.org/Submission/SWRL/) syntax, a rich set of built in functions, IF-THEN clauses and OWL 2 axioms for user-defined rule reasoning. All of this is possible using SPARQL-based queries to combining flexibility, power and ease of use.
+      OWL is useful for reasoning about graph nodes and edges and deriving
+      results based upon rich (optional) schema descriptions. This represents
+      only one type of reasoning, however. Stardog also supports a very rich
+      rule language (based on [Semantic Web Rule Language
+      (SWRL)](http://www.w3.org/Submission/SWRL/) semantics), including a rich
+      set of built in functions. All of this is accessible using SPARQL queries
+      to combine power, flexibility, and simplicity.
       
       ## What is Integrity Constraint Validation?
-      The RDF model is flexible and allows information to be pulled from any numbers of sources. In its effort to support the [Open World Assumption](http://en.wikipedia.org/wiki/Open-world_assumption) it does not provide the ability to constrain or validate the structure of a graph.
-      
-      Stardog includes the ability to perform [closed world](http://en.wikipedia.org/wiki/Closed-world_assumption) integrity constraint validation (ICV) to ensure the quality of ingested data. These constraints can be described through any combination of the OWL, SWRL and SPARQL syntaxes.
+     
+      The RDF model is flexible and allows information to be pulled from any
+      numbers of sources. Stardog includes the ability to perform integrity
+      constraint validation (ICV) to ensure the quality of ingested data. These
+      constraints can be described through any combination of OWL, rules and
+      SPARQL.
