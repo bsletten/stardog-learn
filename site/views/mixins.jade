@@ -8,9 +8,14 @@ mixin buttons(url)
       input(type="submit",value="Quiz me").quiz-button
     +stardog
 
+mixin footer
+  div.footer
+    div.toplogo #[a(href="http://complexible.com/") #[img(id="bottomdog", height="150",width="180",src="/img/l-b.png")] ]
+      p.small &copy; 2015 #[a(href="http://complexible.com/") Complexible Inc]. #[a(href="http://creativecommons.org/licenses/by-sa/3.0/") Some rights reserved]. Icons #[a(href="http://www.freepik.com/") designed by Freepik].
+    
 mixin install
   div.install
-    h2 Getting Started <!-- Installing the Tutorial Environment -->
+    h1 Getting Started <!-- Installing the Tutorial Environment -->
     ol
       li Install Stardog
         pre
