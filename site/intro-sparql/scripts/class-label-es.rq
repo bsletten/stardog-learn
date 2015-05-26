@@ -1,0 +1,8 @@
+SELECT ?class ?label 
+WHERE 
+{ 
+  ?class a owl:Class ;
+    rdfs:label ?label .
+  FILTER( lang(?label) = 'es' )
+}
+ORDER BY ?class

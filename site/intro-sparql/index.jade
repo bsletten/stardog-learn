@@ -1,0 +1,345 @@
+extends ../views/tutorial
+include ../views/mixins
+
+block subtitle
+  | Introduction to SPARQL
+
+block version-date
+  | 1 May 2015, v. 1.0
+
+block content
+  div.tutorial
+    h2 Introduction
+    p SPARQL is a self-referential acronym. It stands for the **SP**ARQL Protocol and RDF Query Language. It identifies both a standard query language and a protocol for sending the queries to servers that support it. These two standards make it possible to use portable queries against portable data.
+    :markdown
+      ### Load the Data
+      Fetch the tutorial data set from [here](https://path/to/data). This is some RDF data about restaurants in Washington, DC. Because of the standards involved you can load the data into Stardog without having to know anything about its structure.
+      ``` auto
+      $ stardog-admin db create -n dcfoodie -t -D -u admin -p admin dcfoodie.ttl 
+      Bulk loading data to new database dcfoodie.
+      Loaded 800 triples to dcfoodie from 1 file(s) in 00:00:00.184 @ 4.3K triples/sec.
+      Successfully created database 'dcfoodie'.
+      ```
+      ### Basic Querying
+      Even though you don't know the structure of the data before loading it in, you will probably want to learn what subjects and predicates are used in it out so you know how to ask specific questions. One of the basic SPARQL query forms is called the `SELECT` form.
+      ``` auto
+      SELECT <variables>
+      WHERE {
+         <graph pattern>
+      }
+      ```
+      This query form will give you a tabular result set of data in the graph. Each variable you select will show up as a column in the results. If the graph pattern expressed in the `WHERE` clause exists in the graph, it will generate rows for every instance of the pattern that is matched. If you have a specific question to ask of the data, you will use a mixture of variables, URIs and literals in the graph pattern.
+      
+      First, let's get a basic sense of what is in the data we imported. We want to ask a query that is completely unconstrained. The graph pattern indicates the three parts of an RDF triple that might occur in the graph: subject, predicate, object. Because we don't know what is there, we'll issue a query with only variables in the graph pattern. This will match any triple in the graph and we'll get back one row per triple.
+      ``` auto
+      SELECT ?s ?p ?o
+      WHERE {
+         ?s ?p ?o
+      }
+      ```
+      
+      When we execute that query, we see that we get all 800 triples:
+      
+      ``` auto
+      $ stardog query dcfoodie 'SELECT ?s ?p ?o WHERE { ?s ?p ?o }'
+      +----------------------+--------------+-----------------------------+
+      |          s           |      p       |          o                  |
+      +----------------------+--------------+-----------------------------+
+      | :hasChefDeCuisine    | rdf:type     | owl:ObjectProperty          |
+      | :hasChefDeCuisine    | rdfs:label   | "Has Chef De Cuisine"       |
+      | :hasChefDePartie     | rdf:type     | owl:ObjectProperty          |
+      | :hasChefDePartie     | rdfs:label   | "Has Chef De Partie"        |
+      | :hasPatissier        | rdf:type     | owl:ObjectProperty          |
+      | :hasPatissier        | rdfs:label   | "Has Patissier"             |
+      | :hasPlongeur         | rdf:type     | owl:ObjectProperty          |
+      | :hasPlongeur         | rdfs:label   | "Has Plongeur"              |
+      | :hasPotager          | rdf:type     | owl:ObjectProperty          |
+      ...
+      ```
+      
+      When you don't wish to be overwhelmed by results (or be rude to a server), you should use the `LIMIT` clause to minimize the query results.
+      
+      ``` auto
+      SELECT ?s ?p ?o
+      WHERE {
+         ?s ?p ?o
+      }
+      LIMIT 50
+      ```
+      
+      With a more reasonable amount of data we see, in fact, that this is a data set about food. While it does talk about individual restaurants, we also see that introduces a several new properties as well. Because there is no separation between metadata and data, there is no reason to separate "schema" information (e.g. the definition of properties) and instance data (e.g. the assertion of values for those properties for entities).
+      
+      RDFS and OWL classes are useful ways of expressing set membership for resources. It may be interesting to find out all of the classes that resources are in our data set. We'll use a shortcut for the `rdf:type` relationship to find out every named class, or rather, everything that is an instance of the `owl:Class` class. In general there probably won't be too many classes defined so we'll leave off the `LIMIT` clause so we'll see them all.
+      
+      ``` auto
+      SELECT ?class 
+      WHERE 
+      { ?class a owl:Class }
+      ```
+      
+      ``` auto
+      $ stardog query dcfoodie 'SELECT ?class WHERE { ?class a owl:Class }'
+      +--------------------+
+      |       class        |
+      +--------------------+
+      | :African           |
+      | :American          |
+      | :Apprenti          |
+      | :Person            |
+      | :Asian             |
+      | :Boucher           |
+      | :Boulanger         |
+      | :Patissier         |
+      | :DemiChef          |
+      | :ChefDeCuisine     |
+      | :ChefDePartie      |
+      | :Commis            |
+      | :Communard         |
+      | :Confiseur         |
+      | :Continental       |
+      | :Decorateur        |
+      | :Entremetier       |
+      | :Ethiopian         |
+      | :French            |
+      | :Friturier         |
+      | :Rotisseur         |
+      | :GarconDeCuisine   |
+      ...
+      +--------------------+
+      Query returned 42 results in 00:00:00.457
+      ```
+      
+      While the class names are fairly descriptive, it might be nice to select for the human-readable label associated with each class. We saw above that `rdfs:label` is used to describe the properties here, so there is a good chance it is used for classes as well. While we're add it, let's look at the class list in alphabetical order.
+      
+      ``` auto
+      SELECT ?class ?label 
+      WHERE 
+      { 
+        ?class a owl:Class ;
+          rdfs:label ?label .
+      }
+      ORDER BY ?class
+      ```
+      
+      This query is getting a little long to put on the command line so we'll put it in a file called `class-label.rq` and pass that into our query request.
+      
+      ``` auto
+      $ stardog query dcfoodie class-label.rq 
+      +--------------------+------------------------+
+      |       class        |         label          |
+      +--------------------+------------------------+
+      | :Apprenti          | "Apprenti"             |
+      | :Boucher           | "Boucher"              |
+      | :Boulanger         | "Boulanger"            |
+      | :ChefDeCuisine     | "Chef de Cuisine"      |
+      | :ChefDePartie      | "Chef de Partie"       |
+      | :Commis            | "Commis"               |
+      | :Communard         | "Communard"            |
+      | :Confiseur         | "Confiseur"            |
+      | :Decorateur        | "Decorateur"           |
+      | :DemiChef          | "Demi Chef"            |
+      | :Entremetier       | "Entremetier"          |
+      | :Friturier         | "Friturier"            |
+      | :GarconDeCuisine   | "Garcon de Cuisine"    |
+      | :GardeManger       | "Garde Manger"         |
+      | :Glacier           | "Glacier"              |
+      | :Grillardin        | "Grillardin"           |
+      | :Legumier          | "Legumier"             |
+      | :Marmiton          | "Marmiton"             |
+      | :Patissier         | "Patissier"            |
+      | :Person            | "Person"@en            |
+      | :Person            | "Persona"@es           |
+      | :Plongeur          | "Plongeur"             |
+      | :Poissonieur       | "Poissonieur"          |
+      | :Potager           | "Potager"              |
+      | :Rotisseur         | "Rotisseur"            |
+      | :Saucier           | "Saucier"              |
+      | :SousChefDeCuisine | "Sous Chef de Cuisine" |
+      | :Student           | "Student"              |
+      | :Student           | "Estudiante"@es        |
+      | :Tournant          | "Tournant"             |
+      +--------------------+------------------------+
+      Query returned 30 results in 00:00:00.235
+      ```
+      
+      Interestingly we see that the labels don't necessarily elucidate the class names more than names themselves already do, but we have learned something more about the data. First, not every class has an rdfs:label. We see that by the fact that the first class-based query returned 42 results but this one only returned 30. The difference between the queries is the inclusion of the `rdfs:label` in the graph pattern. Because some classes don't have labels, they are excluded from the results. Given that our goal was to learn more about the classes, not filter the results, we should re-write our query to allow classes that don't have labels to still show up in the results. For that, we'll use the `OPTIONAL` clause.
+      
+      ``` auto
+      SELECT ?class ?label 
+      WHERE 
+      { 
+        ?class a owl:Class ;
+          rdfs:label ?label .
+      }
+      ORDER BY ?class
+      ```
+      
+      Now we see which ones don't have labels, but we also notice that there are more than 42 results. Some of the classes have two labels, one in English, one in Spanish.      
+      
+      ``` auto
+      $ stardog query dcfoodie class-label-optional.rq 
+      +--------------------+------------------------+
+      |       class        |         label          |
+      +--------------------+------------------------+
+      | :African           |                        |
+      | :American          |                        |
+      | :Apprenti          | "Apprenti"             |
+      | :Asian             |                        |
+      | :Boucher           | "Boucher"              |
+      | :Boulanger         | "Boulanger"            |
+      | :ChefDeCuisine     | "Chef de Cuisine"      |
+      | :ChefDePartie      | "Chef de Partie"       |
+      | :Commis            | "Commis"               |
+      | :Communard         | "Communard"            |
+      | :Confiseur         | "Confiseur"            |
+      | :Continental       |                        |
+      | :Decorateur        | "Decorateur"           |
+      | :DemiChef          | "Demi Chef"            |
+      | :Entremetier       | "Entremetier"          |
+      | :Ethiopian         |                        |
+      | :French            |                        |
+      | :Friturier         | "Friturier"            |
+      | :GarconDeCuisine   | "Garcon de Cuisine"    |
+      | :GardeManger       | "Garde Manger"         |
+      | :Glacier           | "Glacier"              |
+      | :Greek             |                        |
+      | :Grillardin        | "Grillardin"           |
+      | :Indian            |                        |
+      | :Italian           |                        |
+      | :Japanese          |                        |
+      | :Latin             |                        |
+      | :Legumier          | "Legumier"             |
+      | :Marmiton          | "Marmiton"             |
+      | :Mexican           |                        |
+      | :Patissier         | "Patissier"            |
+      | :Person            | "Person"@en            |
+      | :Person            | "Persona"@es           |
+      | :Plongeur          | "Plongeur"             |
+      | :Poissonieur       | "Poissonieur"          |
+      | :Potager           | "Potager"              |
+      | :Rotisseur         | "Rotisseur"            |
+      | :Salvadoran        |                        |
+      | :Saucier           | "Saucier"              |
+      | :SousChefDeCuisine | "Sous Chef de Cuisine" |
+      | :Student           | "Student"              |
+      | :Student           | "Estudiante"@es        |
+      | :Thai              |                        |
+      | :Tournant          | "Tournant"             |
+      +--------------------+------------------------+
+
+      Query returned 44 results in 00:00:00.337
+      ```
+      
+      To find all of the Spanish labels, we can filter the results by language. As we know there are labels, we'll avoid the use of `OPTIONAL` here.
+      
+      ``` auto
+      SELECT ?class ?label 
+      WHERE 
+      { 
+        ?class a owl:Class ;
+          rdfs:label ?label .
+        FILTER( lang(?label) = 'es' )
+      }
+      ORDER BY ?class
+      ```
+      
+      We see the results below.
+      
+      ``` auto
+      $ stardog query dcfoodie class-label-es.rq 
+      +----------+-----------------+
+      |  class   |      label      |
+      +----------+-----------------+
+      | :Person  | "Persona"@es    |
+      | :Student | "Estudiante"@es |
+      +----------+-----------------+
+
+      Query returned 2 results in 00:00:00.405
+      ```
+      
+      What if we considered it a failure that some of the classes don't have labels? We want the vocabulary to be self-documenting. We can use the `bound()` function along with the `FILTER` clause to show us only the classes that don't have labels.
+ 
+      ``` auto
+      SELECT ?class
+      WHERE 
+      { 
+        ?class a owl:Class ;
+          rdfs:label ?label .
+        FILTER( !bound(?label) )
+      }
+      ORDER BY ?class
+      ```
+      
+      Uh-oh! Perhaps surprisingly we get no results when we run our query:
+      
+      ``` auto
+      $ stardog query dcfoodie class-no-label.rq 
+      +-------+
+      | class |
+      +-------+
+      +-------+
+
+      Query returned 0 results in 00:00:00.499
+      ```
+      
+      A quick think about our graph pattern will show us what is wrong. We're still matching against graphs with both class names and labels. We need to use the `OPTIONAL` clause to allow classes without labels to be matched and then we will filter on the results.
+      
+      ``` auto
+      SELECT ?class
+      WHERE 
+      { 
+        ?class a owl:Class .
+        OPTIONAL { ?class rdfs:label ?label } .
+        FILTER( !bound(?label) )
+      }
+      ORDER BY ?class
+      ```
+      Now we get what we were expecting, the name of each class that doesn't have a label.
+      
+      ``` auto
+      $ stardog query dcfoodie class-no-label-optional.rq 
+      +--------------+
+      |    class     |
+      +--------------+
+      | :African     |
+      | :American    |
+      | :Asian       |
+      | :Continental |
+      | :Ethiopian   |
+      | :French      |
+      | :Greek       |
+      | :Indian      |
+      | :Italian     |
+      | :Japanese    |
+      | :Latin       |
+      | :Mexican     |
+      | :Salvadoran  |
+      | :Thai        |
+      +--------------+
+
+      Query returned 14 results in 00:00:00.172
+      ```
+      
+      Finally, if we just want to check periodically whether there are any new, unlabelled classes in our vocabulary, we can count the results using the `COUNT` aggregate function. Obviously if we aren't going to be looking at the class names, we can leave off the `ORDER BY` clause.
+      
+      ``` auto
+      SELECT (COUNT(?class) as ?missingLabelCount)
+      WHERE 
+      { 
+        ?class a owl:Class .
+        OPTIONAL { ?class rdfs:label ?label } .
+        FILTER( !bound(?label) )
+      }
+      ```
+
+      ``` auto
+      $ stardog query dcfoodie class-missing-label-count.rq 
+      +-------------------+
+      | missingLabelCount |
+      +-------------------+
+      | 14                |
+      +-------------------+
+
+      Query returned 1 results in 00:00:00.356
+      ```           
+      ### Prefixes

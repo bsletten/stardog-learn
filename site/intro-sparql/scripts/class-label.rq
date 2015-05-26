@@ -1,0 +1,7 @@
+SELECT ?class ?label 
+WHERE 
+{ 
+  ?class a owl:Class ;
+    rdfs:label ?label .
+}
+ORDER BY ?class

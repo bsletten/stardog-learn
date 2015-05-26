@@ -1,0 +1,991 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix : <http://org.clarkparsia.dcfoodie/model#> .
+@prefix s2: <http://org.someorg/japaneseDC#> .
+@prefix s1: <http://org.someorg/someDB#> .
+
+:hasChefDeCuisine a owl:ObjectProperty ;
+	rdfs:label "Has Chef De Cuisine" .
+
+:hasChefDePartie a owl:ObjectProperty ;
+	rdfs:label "Has Chef De Partie" .
+
+:hasPatissier a owl:ObjectProperty ;
+	rdfs:label "Has Patissier" .
+
+:hasPlongeur a owl:ObjectProperty ;
+	rdfs:label "Has Plongeur" .
+
+:hasPotager a owl:ObjectProperty ;
+	rdfs:label "Has Potager" .
+
+:hasSaucier a owl:ObjectProperty ;
+	rdfs:label "Has Saucier" .
+
+:hasSousChefDeCuisine a owl:ObjectProperty ;
+	rdfs:label "Has Sous Chef" .
+
+:hasWebsite a owl:ObjectProperty ;
+	rdfs:label "Website" .
+
+:worksAt a owl:ObjectProperty ;
+	rdfs:label "Works at" .
+
+:Restaurant a owl:DatatypeProperty ;
+	rdfs:label "Restaurant" .
+
+:city a owl:DatatypeProperty ;
+	rdfs:label "City" .
+
+:cuisine a owl:DatatypeProperty ;
+	rdfs:label "Cuisine" .
+
+:phone a owl:DatatypeProperty ;
+	rdfs:label "Phone number" .
+
+:restaurantName a owl:DatatypeProperty ;
+	rdfs:label "Name" .
+
+:state a owl:DatatypeProperty ;
+	rdfs:label "State" .
+
+:streetAddress a owl:DatatypeProperty ;
+	rdfs:label "Address" .
+
+:zipcode a owl:DatatypeProperty ;
+	rdfs:label "Zip code" .
+
+:African a owl:Class ;
+	rdfs:subClassOf :Restaurant .
+
+:American a owl:Class ;
+	rdfs:subClassOf :Restaurant .
+
+:Apprenti a owl:Class ;
+	rdfs:label "Apprenti" ;
+	rdfs:subClassOf :Person .
+
+:Person a owl:Class ;
+	rdfs:label "Person"@en , "Persona"@es .
+
+:Asian a owl:Class ;
+	rdfs:subClassOf :Restaurant .
+
+:Boucher a owl:Class ;
+	rdfs:label "Boucher" ;
+	rdfs:subClassOf :Person .
+
+:Boulanger a owl:Class ;
+	rdfs:label "Boulanger" ;
+	rdfs:subClassOf :Patissier .
+
+:Patissier a owl:Class ;
+	rdfs:label "Patissier" ;
+	rdfs:subClassOf :DemiChef .
+
+:DemiChef a owl:Class ;
+	rdfs:label "Demi Chef" ;
+	rdfs:subClassOf :Person .
+
+:ChefDeCuisine a owl:Class ;
+	rdfs:label "Chef de Cuisine" ;
+	rdfs:subClassOf :Person .
+
+:ChefDePartie a owl:Class ;
+	rdfs:label "Chef de Partie" ;
+	rdfs:subClassOf :Person .
+
+:Commis a owl:Class ;
+	rdfs:label "Commis" ;
+	rdfs:subClassOf :Person .
+
+:Communard a owl:Class ;
+	rdfs:label "Communard" ;
+	rdfs:subClassOf :DemiChef .
+
+:Confiseur a owl:Class ;
+	rdfs:label "Confiseur" ;
+	rdfs:subClassOf :Patissier .
+
+:Continental a owl:Class ;
+	rdfs:subClassOf :Restaurant .
+
+:Decorateur a owl:Class ;
+	rdfs:label "Decorateur" ;
+	rdfs:subClassOf :Patissier .
+
+:Entremetier a owl:Class ;
+	rdfs:label "Entremetier" ;
+	rdfs:subClassOf :DemiChef .
+
+:Ethiopian a owl:Class ;
+	rdfs:subClassOf :African .
+
+:French a owl:Class ;
+	rdfs:subClassOf :Continental .
+
+:Friturier a owl:Class ;
+	rdfs:label "Friturier" ;
+	rdfs:subClassOf :Rotisseur .
+
+:Rotisseur a owl:Class ;
+	rdfs:label "Rotisseur" ;
+	rdfs:subClassOf :DemiChef .
+
+:GarconDeCuisine a owl:Class ;
+	rdfs:label "Garcon de Cuisine" ;
+	rdfs:subClassOf :Person .
+
+:GardeManger a owl:Class ;
+	rdfs:label "Garde Manger" ;
+	rdfs:subClassOf :Person .
+
+:Glacier a owl:Class ;
+	rdfs:label "Glacier" ;
+	rdfs:subClassOf :Patissier .
+
+:Greek a owl:Class ;
+	rdfs:subClassOf :Continental .
+
+:Grillardin a owl:Class ;
+	rdfs:label "Grillardin" ;
+	rdfs:subClassOf :Rotisseur .
+
+:Indian a owl:Class ;
+	rdfs:subClassOf :Asian .
+
+:Italian a owl:Class ;
+	rdfs:subClassOf :Continental .
+
+:Japanese a owl:Class ;
+	rdfs:subClassOf :Asian .
+
+:Latin a owl:Class ;
+	rdfs:subClassOf :Restaurant .
+
+:Legumier a owl:Class ;
+	rdfs:label "Legumier" ;
+	rdfs:subClassOf :Entremetier .
+
+:Marmiton a owl:Class ;
+	rdfs:label "Marmiton" ;
+	rdfs:subClassOf :Plongeur .
+
+:Plongeur a owl:Class ;
+	rdfs:label "Plongeur" ;
+	rdfs:subClassOf :Person .
+
+:Mexican a owl:Class ;
+	rdfs:subClassOf :Latin .
+
+:Poissonieur a owl:Class ;
+	rdfs:label "Poissonieur" ;
+	rdfs:subClassOf :DemiChef .
+
+:Potager a owl:Class ;
+	rdfs:label "Potager" ;
+	rdfs:subClassOf :Entremetier .
+
+:Salvadoran a owl:Class ;
+	rdfs:subClassOf :Latin .
+
+:Saucier a owl:Class ;
+	rdfs:label "Saucier" ;
+	rdfs:subClassOf :DemiChef .
+
+:SousChefDeCuisine a owl:Class ;
+	rdfs:label "Sous Chef de Cuisine" ;
+	rdfs:subClassOf :Person .
+
+:Thai a owl:Class ;
+	rdfs:subClassOf :Asian .
+
+:Tournant a owl:Class ;
+	rdfs:label "Tournant" ;
+	rdfs:subClassOf :Person .
+
+<http://data.example.com/locations/001> a :Restaurant ;
+	rdfs:label "Sundevich" ;
+	:hasWebsite <http://sundevich.com/> ;
+	:city "Washington" ;
+	:cuisine "Diner" , "Sandwich" ;
+	:phone "202.319.1086" ;
+	:restaurantName "Sundevich" ;
+	:state "DC" ;
+	:streetAddress "1314 9th st NW" ;
+	:zipcode "20009"^^xsd:integer .
+
+<http://data.example.com/locations/002> a :Restaurant ;
+	rdfs:label "Rasika Penn Quarter" ;
+	:hasWebsite <http://www.rasikarestaurant.com/pennquarter/> , <http://www.rasikarestaurant.com> ;
+	:city "Washington" ;
+	:cuisine "Indian" ;
+	:phone "202-887-2919" ;
+	:restaurantName "Rasika Penn Quarter" ;
+	:state "DC" ;
+	:streetAddress "633 D st NW" ;
+	:zipcode "20004"^^xsd:integer .
+
+<http://data.example.com/locations/003> a :Restaurant ;
+	rdfs:label "Rasika West End" ;
+	:hasWebsite <http://www.rasikarestaurant.com/westend/> ;
+	:city "Washington" ;
+	:cuisine "Indian" ;
+	:phone "202.466.1000" ;
+	:restaurantName "Rasika West End" ;
+	:state "DC" ;
+	:streetAddress "1190 New Hampshire Ave NW" ;
+	:zipcode "20037"^^xsd:integer .
+
+<http://data.example.com/locations/004> a :Restaurant ;
+	rdfs:label "Komi" ;
+	:hasWebsite <http://komirestaurant.com/> ;
+	:city "Washington" ;
+	:cuisine "Greek" ;
+	:phone "202.332.9200" ;
+	:restaurantName "Komi" ;
+	:state "DC" ;
+	:streetAddress "1509 17th st NW" ;
+	:zipcode "20009"^^xsd:integer .
+
+<http://data.example.com/locations/005> a :Restaurant ;
+	rdfs:label "701"^^xsd:integer ;
+	:hasWebsite <http://701restaurant.com/> ;
+	:city "Washington" ;
+	:cuisine "American" ;
+	:phone "202.393.0701" ;
+	:restaurantName "701"^^xsd:integer ;
+	:state "DC" ;
+	:streetAddress "701 Pennsylvania Ave NW" ;
+	:zipcode "20004"^^xsd:integer .
+
+<http://data.example.com/locations/006> a :Restaurant ;
+	rdfs:label "Etete" ;
+	:hasWebsite <http://www.eteterestaurant.com/> ;
+	:city "Washington" ;
+	:cuisine "Ethiopian" ;
+	:phone "202.232.7600" ;
+	:restaurantName "Etete" ;
+	:state "DC" ;
+	:streetAddress "1942 9th st NW" ;
+	:zipcode "20001"^^xsd:integer .
+
+<http://data.example.com/locations/007> a :Restaurant ;
+	rdfs:label "Blue Duck Tavern" ;
+	:hasPlongeur :DavidJohnson ;
+	:hasWebsite <http://www.blueducktavern.com/gallery/blueduck/home.html> ;
+	:city "Washington" ;
+	:cuisine "American" ;
+	:phone "202.419.6311" ;
+	:restaurantName "Blue Duck Tavern" ;
+	:state "DC" ;
+	:streetAddress "1201 24th st NW" ;
+	:zipcode "20037"^^xsd:integer .
+
+:DavidJohnson a :Plongeur , owl:NamedIndividual ;
+	rdfs:label "David Johnson"^^xsd:string ;
+	:worksAt <http://data.example.com/locations/007> .
+
+<http://data.example.com/locations/008> a :Restaurant ;
+	rdfs:label "Little Serow" ;
+	:hasWebsite <http://littleserow.com/> ;
+	:city "Washington" ;
+	:cuisine "Thai" ;
+	:phone "202.182.3819" ;
+	:restaurantName "Little Serow" ;
+	:state "DC" ;
+	:streetAddress "1511 17th st NW" ;
+	:zipcode "20036"^^xsd:integer .
+
+<http://data.example.com/locations/009> a :Restaurant ;
+	rdfs:label "Florida Avenue Grill" ;
+	:hasWebsite <http://floridaavenuegrill.com/> ;
+	:city "Washington" ;
+	:cuisine "American" ;
+	:phone "202.265.1586" ;
+	:restaurantName "Florida Avenue Grill" ;
+	:state "DC" ;
+	:streetAddress "1100 Florida Avenue NW" ;
+	:zipcode "20009"^^xsd:integer .
+
+<http://data.example.com/locations/010> a :Restaurant ;
+	rdfs:label "Obelisk" ;
+	:hasWebsite <http://www.washingtonpost.com/gog/restaurants/obelisk> ;
+	:city "Washington" ;
+	:cuisine "Italian" ;
+	:phone "202.001.0021" ;
+	:restaurantName "Obelisk" ;
+	:state "DC" ;
+	:streetAddress "2029 P st NW" ;
+	:zipcode "20036"^^xsd:integer .
+
+<http://data.example.com/locations/011> a :Restaurant ;
+	rdfs:label "Rogue 24" ;
+	:hasWebsite <http://www.rogue24.com/> ;
+	:city "Washington" ;
+	:cuisine "American" ;
+	:phone "202.408.9724" ;
+	:restaurantName "Rogue 24" ;
+	:state "DC" ;
+	:streetAddress "922 N st NW" ;
+	:zipcode "20001"^^xsd:integer .
+
+<http://data.example.com/locations/012> a :Restaurant ;
+	rdfs:label "Table DC" ;
+	:hasWebsite <http://tabledc.com/> ;
+	:city "Washington" ;
+	:cuisine "French" ;
+	:phone "202.588.5200" ;
+	:restaurantName "Table DC" ;
+	:state "DC" ;
+	:streetAddress "903 N st NW" ;
+	:zipcode "20001"^^xsd:integer .
+
+<http://data.example.com/locations/013> a :Restaurant ;
+	rdfs:label "Le Diplomate" ;
+	:hasWebsite <http://lediplomatedc.com/> ;
+	:city "Washington" ;
+	:cuisine "French" ;
+	:phone "202.332.3333" ;
+	:restaurantName "Le Diplomate" ;
+	:state "DC" ;
+	:streetAddress "1601 14th st NW" ;
+	:zipcode "20009"^^xsd:integer .
+
+<http://data.example.com/locations/014> a :Restaurant ;
+	rdfs:label "Le Refuge" ;
+	:hasWebsite <http://www.lerefugealexandria.com/> ;
+	:city "Alexandria" ;
+	:cuisine "French" ;
+	:phone "703.548.4661" ;
+	:restaurantName "Le Refuge" ;
+	:state "VA" ;
+	:streetAddress "127 North Washington st" ;
+	:zipcode "22314"^^xsd:integer .
+
+<http://data.example.com/locations/015> a :Restaurant ;
+	rdfs:label "Elisir" ;
+	:hasWebsite <http://elisirrestaurant.com/> ;
+	:city "Washington" ;
+	:cuisine "Italian" ;
+	:phone "202.546.0088" ;
+	:restaurantName "Elisir" ;
+	:state "DC" ;
+	:streetAddress "427 11th st NW" ;
+	:zipcode "20004"^^xsd:integer .
+
+<http://data.example.com/locations/016> a :Restaurant ;
+	rdfs:label "The Mini Bar" ;
+	:hasWebsite <http://www.minibarbyjoseandres.com/> ;
+	:city "Washington" ;
+	:cuisine "International" ;
+	:phone "202.393.0812" ;
+	:restaurantName "The Mini Bar" ;
+	:state "DC" ;
+	:streetAddress "855 E st NW" ;
+	:zipcode "20004"^^xsd:integer .
+
+<http://data.example.com/locations/017> a :Restaurant ;
+	rdfs:label "El Rinconcito" ;
+	:hasWebsite <http://www.yelp.com/biz/el-rinconcito-cafe-washington> ;
+	:city "Washington" ;
+	:cuisine "Salvadoran" ;
+	:phone "202-392-0302" ;
+	:restaurantName "El Rinconcito" ;
+	:state "DC" ;
+	:streetAddress "1129 11th st NW" ;
+	:zipcode "20001"^^xsd:integer .
+
+<http://data.example.com/locations/018> a :Restaurant ;
+	rdfs:label "Blacksait Restaurant" ;
+	:hasWebsite <http://www.blacksaltrestaurant.com/> ;
+	:city "Washington" ;
+	:cuisine "American" ;
+	:phone "202.342.9101" ;
+	:restaurantName "Blacksait Restaurant" ;
+	:state "DC" ;
+	:streetAddress "4883 MacArthur Blvd" ;
+	:zipcode "20007"^^xsd:integer .
+
+:AdamSchop a :Person , :ChefDeCuisine ;
+	rdfs:label "Adam Schop" ;
+	:worksAt <http://data.example.com/locations/013> .
+
+:EmmanueleGrant a :Person , :Potager ;
+	rdfs:label "Emmanuele Grant" ;
+	:worksAt <http://data.example.com/locations/013> .
+
+:GerardKomi a :Person , :Saucier ;
+	rdfs:label "Gerard Komi" ;
+	:worksAt <http://data.example.com/locations/013> .
+
+:GerardoHernandez a :Person , :ChefDePartie ;
+	rdfs:label "Gerardo Hernandez" ;
+	:worksAt <http://data.example.com/locations/016> .
+
+:GianeCarreiroCavaliere a :Patissier , owl:NamedIndividual ;
+	rdfs:label "Giane Carreiro Cavaliere"^^xsd:string ;
+	:worksAt <http://data.example.com/locations/011> .
+
+:HiroshiSeki a :Person , :ChefDeCuisine ;
+	rdfs:label "Hiroshi Seki" ;
+	:worksAt s2:r8o17asda1 .
+
+s2:r8o17asda1 a :Restaurant ;
+	rdfs:label "Izakaya Seki" ;
+	:hasWebsite <http://www.sekidc.com/> ;
+	:city "Washington" ;
+	:cuisine "Japanese" ;
+	:phone "202.111.1111" ;
+	:restaurantName "Izakaya Seki" ;
+	:state "DC" ;
+	:streetAddress "1117 V st NW" .
+
+:JohnyMonis a :Person , :ChefDeCuisine ;
+	rdfs:label "Johny Monis" ;
+	:worksAt <http://data.example.com/locations/004> , <http://data.example.com/locations/008> .
+
+:JonSybert a :Person , :SousChefDeCuisine ;
+	rdfs:label "Jon Sybert" ;
+	:worksAt <http://data.example.com/locations/004> .
+
+:JorgePerez a :Person , :SousChefDeCuisine ;
+	rdfs:label "Jorge Perez" ;
+	:worksAt <http://data.example.com/locations/016> .
+
+:JoseAndres a :Person , :ChefDeCuisine ;
+	rdfs:label "Jose Andres" ;
+	:worksAt <http://data.example.com/locations/016> .
+
+:ManishTyagi a :Person , :ChefDeCuisine ;
+	rdfs:label "Manish Tyagi" ;
+	:worksAt <http://data.example.com/locations/003> .
+
+:PeterPastan a :Person , :ChefDeCuisine ;
+	rdfs:label "Peter Pastan" ;
+	:worksAt <http://data.example.com/locations/010> .
+
+:RJCooper a :Person , :ChefDeCuisine ;
+	rdfs:label "RJ Cooper" ;
+	:worksAt <http://data.example.com/locations/011> .
+
+:SebastienArchambault a :Person , :ChefDeCuisine ;
+	rdfs:label "Sebastien Archambault" ;
+	:worksAt <http://data.example.com/locations/007> .
+
+:VikramSunderam a :Person , :SousChefDeCuisine ;
+	rdfs:label "Vikram Sunderam" ;
+	:worksAt <http://data.example.com/locations/003> .
+
+:r1 a :Restaurant ;
+	rdfs:label "El Chilango" ;
+	:city "Washington" ;
+	:cuisine "Mexican" ;
+	:phone "202.986.3030" ;
+	:restaurantName "El Chilango" ;
+	:state "DC" ;
+	:streetAddress "1119 V st NW" ;
+	:zipcode "20009"^^xsd:integer .
+
+:r2 a :Restaurant ;
+	rdfs:label "Ben's Chilli Bowl" ;
+	:hasWebsite <http://benschilibowl.com/> ;
+	:city "Washington" ;
+	:cuisine "American" ;
+	:phone "202.667.0909" ;
+	:restaurantName "Ben's Chilli Bowl" ;
+	:state "DC" ;
+	:streetAddress "1213 U st NW" ;
+	:zipcode "20009"^^xsd:integer .
+
+s2:r12o981234 a :Restaurant ;
+	rdfs:label "Sushi Taro" ;
+	:hasWebsite <http://www.sushitaro.com/> ;
+	:city "Washington" ;
+	:cuisine "Japanese" ;
+	:phone "202.462.8999" ;
+	:restaurantName "Sushi Taro" ;
+	:state "DC" ;
+	:streetAddress "1503 17th st NW" .
+
+s2:rhk2531457 a :Restaurant ;
+	rdfs:label "Makoto" ;
+	:hasWebsite <http://www.makotorestaurantdc.com/> ;
+	:city "Washington" ;
+	:cuisine "Japanese" ;
+	:phone "202.298.6866" ;
+	:restaurantName "Makoto" ;
+	:state "DC" ;
+	:streetAddress "4822 MacArthur Blvd NW" .
+
+<urn:swrl#x> a swrl:Variable .
+
+<urn:swrl#y> a swrl:Variable .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_112 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_113 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_115 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_113 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_114 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_115 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_116 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_114 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Italian" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_116 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Italian .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_117 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_118 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_120 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_118 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_119 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_120 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_121 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_119 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "French" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_121 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :French .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_122 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_125 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_123 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_125 a swrl:AtomList ;
+	rdf:rest _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_126 ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_128 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_123 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_124 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_124 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#x> ;
+	swrl:propertyPredicate :hasSaucier ;
+	swrl:argument1 <urn:swrl#y> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_126 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_127 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_128 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Saucier .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_127 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#y> ;
+	swrl:propertyPredicate :worksAt ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_129 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_132 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_130 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_132 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_133 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_130 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_131 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_131 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Thai .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_133 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Thai" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_134 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_135 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_139 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_135 a swrl:AtomList ;
+	rdf:rest _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_137 ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_136 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_139 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_140 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_137 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_138 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_136 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Potager .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_138 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#y> ;
+	swrl:propertyPredicate :worksAt ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_140 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#x> ;
+	swrl:propertyPredicate :hasPotager ;
+	swrl:argument1 <urn:swrl#y> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_141 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_144 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_142 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_144 a swrl:AtomList ;
+	rdf:rest _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_146 ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_145 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_142 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_143 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_143 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#x> ;
+	swrl:propertyPredicate :hasPlongeur ;
+	swrl:argument1 <urn:swrl#y> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_146 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_147 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_145 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Plongeur .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_147 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#y> ;
+	swrl:propertyPredicate :worksAt ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_148 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_149 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_153 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_149 a swrl:AtomList ;
+	rdf:rest _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_150 ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_152 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_153 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_154 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_150 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_151 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_152 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :ChefDePartie .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_151 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#y> ;
+	swrl:propertyPredicate :worksAt ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_154 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#x> ;
+	swrl:propertyPredicate :hasChefDePartie ;
+	swrl:argument1 <urn:swrl#y> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_155 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_156 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_160 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_156 a swrl:AtomList ;
+	rdf:rest _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_157 ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_159 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_160 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_161 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_157 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_158 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_159 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :ChefDeCuisine .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_158 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#y> ;
+	swrl:propertyPredicate :worksAt ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_161 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#x> ;
+	swrl:propertyPredicate :hasChefDeCuisine ;
+	swrl:argument1 <urn:swrl#y> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_162 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_165 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_163 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_165 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_166 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_163 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_164 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_164 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Indian .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_166 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Indian" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_167 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_168 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_170 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_168 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_169 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_170 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_171 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_169 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Japanese" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_171 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Japanese .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_172 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_173 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_175 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_173 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_174 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_175 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_176 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_174 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Ethiopian" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_176 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Ethiopian .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_177 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_178 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_182 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_178 a swrl:AtomList ;
+	rdf:rest _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_179 ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_181 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_182 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_183 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_179 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_180 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_181 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :SousChefDeCuisine .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_180 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#y> ;
+	swrl:propertyPredicate :worksAt ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_183 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#x> ;
+	swrl:propertyPredicate :hasSousChefDeCuisine ;
+	swrl:argument1 <urn:swrl#y> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_184 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_187 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_185 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_187 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_188 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_185 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_186 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_186 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :American .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_188 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "American" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_189 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_192 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_190 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_192 a swrl:AtomList ;
+	rdf:rest _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_193 ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_195 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_190 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_191 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_191 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#x> ;
+	swrl:propertyPredicate :hasPatissier ;
+	swrl:argument1 <urn:swrl#y> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_193 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_194 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_195 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Patissier .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_194 a swrl:IndividualPropertyAtom ;
+	swrl:argument2 <urn:swrl#y> ;
+	swrl:propertyPredicate :worksAt ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_196 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_199 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_197 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_199 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_200 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_197 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_198 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_198 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Salvadoran .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_200 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Salvadoran" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_201 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_202 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_204 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_202 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_203 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_204 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_205 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_203 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Greek" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_205 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Greek .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_206 a swrl:Imp ;
+	swrl:body _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_207 ;
+	swrl:head _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_209 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_207 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_208 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_209 a swrl:AtomList ;
+	rdf:rest rdf:nil ;
+	rdf:first _:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_210 .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_208 a swrl:DatavaluedPropertyAtom ;
+	swrl:argument2 "Mexican" ;
+	swrl:propertyPredicate :cuisine ;
+	swrl:argument1 <urn:swrl#x> .
+
+_:bnode_40db1424_fcbf_4dbd_bd58_73070f6e5ec3_210 a swrl:ClassAtom ;
+	swrl:argument1 <urn:swrl#x> ;
+	swrl:classPredicate :Mexican .
+
+:StardogInd-f2c73da4-6d0d-4367-9351-2f7b973c68dd a :Restaurant ;
+	rdfs:label "Mama Chuy DC" ;
+	:hasWebsite <http://mamachuydc.com> ;
+	:city "Washington" ;
+	:cuisine "Mexican" ;
+	:phone "202-667-MAMA" ;
+	:restaurantName "Mama Chuy DC" ;
+	:state "DC" ;
+	:streetAddress "2620 Georgia Ave NW" .
+
+:StardogInd-405021d7-1bd2-4783-b099-17799a327934 a :Restaurant ;
+	rdfs:label "Oyamel" ;
+	:hasWebsite <http://www.oyamel.com/> ;
+	:city "Washington" ;
+	:cuisine "Mexican" ;
+	:phone "202-932-9932" ;
+	:restaurantName "Oyamel" ;
+	:state "DC" ;
+	:streetAddress "401 7th Street NW" .
+
+:Student a owl:Class ;
+	rdfs:label "Student" , "Estudiante"@es ;
+	rdfs:subClassOf :Person .
+
+:StardogInd-b8023969-2710-4701-ad59-00c531789e0f a :Student ;
+	rdfs:label "Juan Perez" .
+
+:StardogInd-ce59070d-ade7-473b-8d91-0f2b49f27114 a :Person , :ChefDeCuisine ;
+	rdfs:label "Bob Jones" ;
+	:restaurantName "Bob Jones" .
+
+:StardogInd-60318684-aaa3-45e3-8f42-e740c3ce86d5 a :Person , :DemiChef , :SousChefDeCuisine ;
+	rdfs:label "David Dauer" .
+
+:StardogInd-9f40058c-fac6-4b8c-b1fb-de133fadfdc6 a :Restaurant ;
+	rdfs:label "Fogo de Chao" ;
+	:hasWebsite <http://www.fogodechao.com> ;
+	:city "Washington" ;
+	:cuisine "Brazilian" ;
+	:restaurantName "Fogo de Chao" ;
+	:state "DC" ;
+	:streetAddress "1101 Pennsylvania Ave NW" .

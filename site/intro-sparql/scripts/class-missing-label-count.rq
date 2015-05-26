@@ -1,0 +1,7 @@
+SELECT (COUNT(?class) as ?missingLabelCount)
+WHERE 
+{ 
+  ?class a owl:Class .
+  OPTIONAL { ?class rdfs:label ?label } .
+  FILTER( !bound(?label) )
+}
