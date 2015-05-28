@@ -1,0 +1,4 @@
+DESCRIBE ?restaurant
+WHERE {
+   ?restaurant :cuisine "French" .
+}

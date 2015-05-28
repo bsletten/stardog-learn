@@ -1,0 +1,9 @@
+SELECT ?name ?cuisine ?phoneNumber
+WHERE {
+   ?restaurant :cuisine ?cuisine ;
+     :restaurantName ?name ;
+     :phone ?phoneNumber .
+     
+   FILTER(regex(?cuisine, "^i", "i"))
+}
+

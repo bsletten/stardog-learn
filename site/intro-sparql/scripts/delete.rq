@@ -1,0 +1,6 @@
+DELETE DATA
+{ 
+  <http://data.example.com/locations/018> 
+     rdfs:label 'Blacksait Restaurant' ;
+     :restaurantName 'Blacksait Restaurant' .
+}

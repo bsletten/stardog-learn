@@ -1,0 +1,5 @@
+SELECT DISTINCT ?cuisineRelationship 
+WHERE {
+  ?restaurant ?cuisineRelationship "French" .
+}
+ORDER BY ?cuisineRelationship

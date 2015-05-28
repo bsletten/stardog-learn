@@ -342,4 +342,388 @@ block content
 
       Query returned 1 results in 00:00:00.356
       ```           
-      ### Prefixes
+      ### A Note on Prefixes
+      
+      The astute reader will perhaps notice that there have been a marked lack of namespace prefixes in our queries so far. We have been taking advantage of a Stardog convenience. By default it knows about namespaces such as those associated with RDF, RDFS and OWL.
+      
+      To find out which prefixes are already known by the database (and can thus be omitted), you can run the following command:
+      
+      ``` auto
+      $ stardog namespace list dcfoodie
+      +---------+---------------------------------------------+
+      | Prefix  |                  Namespace                  |
+      +---------+---------------------------------------------+
+      |         | http://org.clarkparsia.dcfoodie/model#      |
+      | owl     | http://www.w3.org/2002/07/owl#              |
+      | rdf     | http://www.w3.org/1999/02/22-rdf-syntax-ns# |
+      | rdfs    | http://www.w3.org/2000/01/rdf-schema#       |
+      | s1      | http://org.someorg/someDB#                  |
+      | s2      | http://org.someorg/japaneseDC#              |
+      | stardog | tag:stardog:api:                            |
+      | swrl    | http://www.w3.org/2003/11/swrl#             |
+      | swrlb   | http://www.w3.org/2003/11/swrlb#            |
+      | xml     | http://www.w3.org/XML/1998/namespace        |
+      | xsd     | http://www.w3.org/2001/XMLSchema#           |
+      +---------+---------------------------------------------+
+      ```
+      
+      To add a prefix that is not yet known, you can use the following command:
+      
+      ``` auto
+      $ stardog namespace add dcfoodie --prefix void --uri 'http://rdfs.org/ns/void#'
+      Successfully added the namespace.
+      ```
+      We have now added the namespace for the [Vocabulary of Interlinked Datasets (VoID)](http://www.w3.org/TR/void/) to our database. Re-running the namespace query shows that it is now available.
+      ``` auto
+      $ stardog namespace list dcfoodie
+      +---------+---------------------------------------------+
+      | Prefix  |                  Namespace                  |
+      +---------+---------------------------------------------+
+      |         | http://org.clarkparsia.dcfoodie/model#      |
+      | owl     | http://www.w3.org/2002/07/owl#              |
+      | rdf     | http://www.w3.org/1999/02/22-rdf-syntax-ns# |
+      | rdfs    | http://www.w3.org/2000/01/rdf-schema#       |
+      | s1      | http://org.someorg/someDB#                  |
+      | s2      | http://org.someorg/japaneseDC#              |
+      | stardog | tag:stardog:api:                            |
+      | swrl    | http://www.w3.org/2003/11/swrl#             |
+      | swrlb   | http://www.w3.org/2003/11/swrlb#            |
+      | void    | http://rdfs.org/ns/void#                    |
+      | xml     | http://www.w3.org/XML/1998/namespace        |
+      | xsd     | http://www.w3.org/2001/XMLSchema#           |
+      +---------+---------------------------------------------+
+      ```
+      
+      ### Other Query Forms
+      
+      So far we have focused on the `SELECT` form of SPARQL queries. These generate tabular result sets. There are other forms available to use with different intents.
+      
+      If you would like to quickly determine if a data set in a database has information relevant to your current round of inquiry, you can try the `ASK` form which gives you a quick yes or no answer. As soon as it finds a solution to the query, it will return a positive result and not bother evaluating the rest of the results.
+      
+      Let's say you are in the mood for some French food. We're not really sure how the data represents cuisine, so we'll first find out what predicates there are in the database. We know there will probably be restaurants connected to cuisine values. So, let's ask what that relationship might be. We only want one copy of each relationship so we'll use the `DISTINCT` keyword and we'll order the results alphabetically.
+      
+      ``` auto
+      SELECT DISTINCT ?cuisineRelationship 
+      WHERE {
+        ?restaurant ?cuisineRelationship "French" .
+      }
+      ORDER BY ?cuisineRelationship
+      ```
+      
+      We run the query and see the result:
+      
+      ``` auto
+      $ stardog query dcfoodie cuisine-predicate.rq 
+      +---------------------+
+      | cuisineRelationship |
+      +---------------------+
+      | :cuisine            |
+      | swrl:argument2      |
+      +---------------------+
+
+      Query returned 2 results in 00:00:00.077
+      ```
+
+      We get two results. We don't yet know what that second one is, but it seems highly likely that `:cuisine` is the relationship we are going for so we'll use that. What we want to know is if there are any French restaurants in the database. We can use the `ASK` form to come up with a quick answer before we decide to dig deeper.
+      
+      ``` auto
+      ASK
+      WHERE {
+        ?restaurant :cuisine "French" .
+      }
+      ```
+      As you see below, we don't get back a tabular result, just a simple `true` or `false`. Great! There are some French restaurants in our database.
+      
+      ``` auto
+      $ stardog qstardog query dcfoodie ask-french.rq 
+      Result: true.
+      ```
+      
+      By changing the the form to a `SELECT` form but keeping the graph pattern the same, we can now find out which restaurants have the kind of food we are looking for.
+      
+      ``` auto
+      SELECT ?restaurant
+      WHERE {
+         ?restaurant :cuisine "French" .
+      }
+      ```
+      
+      We see that there are three.
+      
+      ``` auto
+      +---------------------------------------+
+      |              restaurant               |
+      +---------------------------------------+
+      | http://data.example.com/locations/012 |
+      | http://data.example.com/locations/013 |
+      | http://data.example.com/locations/014 |
+      +---------------------------------------+
+
+      Query returned 3 results in 00:00:00.084
+      ```
+      
+      Ok, choice is good. Unfortunately, the URIs themselves really don't tell us much about the resource. We could construct a SPARQL to select for all of the data we know about any such resource, but we have a nice shortcut in the `DESCRIBE` form of SPARQL queries. A simple way of using it is to just pick one of the restaurants and ask Stardog to tell us about the resource.
+      
+      ``` auto
+      $ stardog query -f turtle dcfoodie 'DESCRIBE <http://data.example.com/locations/013>'
+      @prefix : <http://org.clarkparsia.dcfoodie/model#> .
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+      <http://data.example.com/locations/013> a :Restaurant ;
+      	rdfs:label "Le Diplomate" ;
+      	:hasWebsite <http://lediplomatedc.com/> ;
+      	:city "Washington" ;
+      	:cuisine "French" ;
+      	:phone "202.332.3333" ;
+      	:restaurantName "Le Diplomate" ;
+      	:state "DC" ;
+      	:streetAddress "1601 14th st NW" ;
+      	:zipcode "20009"^^xsd:integer .
+      ```
+      This is useful. Now we can use a modified form of `DESCRIBE` which doesn't tell us about a single resource, but about any that match a graph pattern like we have been using for the `SELECT` and `ASK` queries.
+      
+      ``` auto
+      DESCRIBE ?restaurant
+      WHERE {
+         ?restaurant :cuisine "French" .
+      }
+      ```
+      
+      This yields:
+      
+      ``` auto
+      $ stardog query -f turtle dcfoodie describe-french-cuisine.rq
+        
+      <http://data.example.com/locations/012> a :Restaurant ;
+      	rdfs:label "Table DC" ;
+      	:hasWebsite <http://tabledc.com/> ;
+      	:city "Washington" ;
+      	:cuisine "French" ;
+      	:phone "202.588.5200" ;
+      	:restaurantName "Table DC" ;
+      	:state "DC" ;
+      	:streetAddress "903 N st NW" ;
+      	:zipcode "20001"^^xsd:integer .
+        .
+        .
+        .
+        .
+        .
+      ```
+      
+      This is a very powerful command, but unfortunately it produces too much data. We're actually feeling pretty tired so we don't want to travel. Let's reduce the output to only French restaurants in our ZIP code of "20001". We see there is at least one.
+      
+      ``` auto
+      DESCRIBE ?restaurant
+      WHERE {
+         ?restaurant :cuisine "French" ;
+            :zipcode "20001" .
+      }
+      ```
+      
+      Unfortunately, we are in for a rude awakening when we run this query.
+      
+      ``` auto
+      $ stardog query -f turtle dcfoodie describe-french-cuisine2.rq
+
+      @prefix : <http://org.clarkparsia.dcfoodie/model#> .
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+      ```
+      
+      Wait, what? Where did our restaurant go?
+      
+      We have just stumbled across one of the biggest problems for people new to SPARQL and RDF. Upon closer inspection of our previous result, we see that the value for the `:zipcode` predicate is a typed literal. It isn't a string, it is an integer. When we didn't specify a value for the ZIP code, the `DESCRIBE` results tell us what it found. When we tried to use a string instead of an integer, nothing matched. This isn't an intuitive result to many folks and proves to be rather frustrating. Fortunately, it's an easy fix. We just simply add the type to our literal in our query.
+      
+      ``` auto
+      DESCRIBE ?restaurant
+      WHERE {
+         ?restaurant :cuisine "French" ;
+            :zipcode "20001"^^xsd:integer .
+      }
+      ```
+      
+      Now we see that there is one and only one French restaurant in our ZIP code. Bon Appétit!
+      
+      ``` auto
+      $ stardog query -f turtle dcfoodie describe-french-cuisine3.rq
+
+      <http://data.example.com/locations/012> a :Restaurant ;
+      	rdfs:label "Table DC" ;
+      	:hasWebsite <http://tabledc.com/> ;
+      	:city "Washington" ;
+      	:cuisine "French" ;
+      	:phone "202.588.5200" ;
+      	:restaurantName "Table DC" ;
+      	:state "DC" ;
+      	:streetAddress "903 N st NW" ;
+      	:zipcode "20001"^^xsd:integer .
+      ```
+      
+      ### More Features
+      
+      Some other night we are hungry again but don't want to be stuck in a rut so we decide to explore what our database has to offer. Let's see how many restaurants we have per cuisine type. Because the graph results could come back in any order, we'll first want to group the restaurants by cuisine and then count the number per group. We can use the `GROUP BY` clause like this:
+      
+      ``` auto
+      SELECT ?cuisine (COUNT(?cuisine) as ?cuisineCount)
+      WHERE {
+        ?restaurant :cuisine ?cuisine .
+      }
+      GROUP BY ?cuisine
+      ```
+      
+      This query produces the following distribution:
+      
+      ``` auto
+      $ stardog query dcfoodie group-by.rq 
+      +-----------------+--------------+
+      |     cuisine     | cuisineCount |
+      +-----------------+--------------+
+      | "Diner"         | 1            |
+      | "Sandwich"      | 1            |
+      | "Indian"        | 2            |
+      | "Greek"         | 1            |
+      | "American"      | 6            |
+      | "Ethiopian"     | 1            |
+      | "Thai"          | 1            |
+      | "Italian"       | 2            |
+      | "French"        | 3            |
+      | "International" | 1            |
+      | "Salvadoran"    | 1            |
+      | "Japanese"      | 3            |
+      | "Mexican"       | 3            |
+      | "Brazilian"     | 1            |
+      +-----------------+--------------+
+
+      Query returned 14 results in 00:00:00.060
+      ```
+      
+      Wow. That's a lot of choices. We're too hungry. Because we aren't really sure what we want, let's pick an arbitrary way of filtering the results. Let's find relevant details about restaurants who serve cuisine that starts with the letter 'i'. For this we will use the `FILTER` clause we saw before, but this time we'll match a [regular expression](http://en.wikipedia.org/wiki/Regular_expression) with the `regex` function. The '^' character means we want to match the beginning of the word and the second 'i' means we want to ignore case.
+      
+      ``` auto
+      SELECT ?name ?cuisine ?phoneNumber
+      WHERE {
+         ?restaurant :cuisine ?cuisine ;
+           :restaurantName ?name ;
+           :phone ?phoneNumber .
+     
+         FILTER(regex(?cuisine, "^i", "i"))
+      }
+      ```
+      
+      Silly as it is, we see our results here:
+      
+      ``` auto
+      $ stardog query dcfoodie filter-regex.rq 
+      +-----------------------+-----------------+----------------+
+      |         name          |     cuisine     |  phoneNumber   |
+      +-----------------------+-----------------+----------------+
+      | "Rasika Penn Quarter" | "Indian"        | "202-887-2919" |
+      | "Rasika West End"     | "Indian"        | "202.466.1000" |
+      | "Obelisk"             | "Italian"       | "202.001.0021" |
+      | "Elisir"              | "Italian"       | "202.546.0088" |
+      | "The Mini Bar"        | "International" | "202.393.0812" |
+      +-----------------------+-----------------+----------------+
+
+      Query returned 5 results in 00:00:00.068
+      ```
+      
+      ### Updating the Database
+      
+      Stardog has always had several ways of modifying the data that it stores. SPARQL 1.1 added the ability to update through SPARQL itself. Let's say we noticed that there was a typo in the name of one of our restaurants. Notice the label and the name are both incorrect.
+      
+      ``` auto
+      $ stardog query -f turtle dcfoodie 'DESCRIBE <http://data.example.com/locations/018>' 
+      @prefix : <http://org.clarkparsia.dcfoodie/model#> .
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+      <http://data.example.com/locations/018> a :Restaurant ;
+      	rdfs:label "Blacksait Restaurant" ;
+      	:hasWebsite <http://www.blacksaltrestaurant.com/> ;
+      	:city "Washington" ;
+      	:cuisine "American" ;
+      	:phone "202.342.9101" ;
+      	:restaurantName "Blacksait Restaurant" ;
+      	:state "DC" ;
+      	:streetAddress "4883 MacArthur Blvd" ;
+      	:zipcode "20007"^^xsd:integer .
+      ```
+      
+      Let's fix this by inserting the right data into the database.
+      
+      ``` auto
+      INSERT DATA
+      { 
+        <http://data.example.com/locations/018> 
+           rdfs:label 'Blacksalt Restaurant' ;
+           :restaurantName 'Blacksalt Restaurant' .
+      }
+      ```
+      
+      We execute our query and see that it runs successfully.
+      
+      ``` auto
+      $ stardog query dcfoodie insert.rq 
+      Update query processed successfully in 00:00:00.156.
+      ```
+      
+      Now when we check, we see that we made a mistake. Inserting the above data didn't overwrite the previous values, it added two more triples.
+      
+      ``` auto
+      $ stardog query -f turtle dcfoodie 'DESCRIBE <http://data.example.com/locations/018>' 
+      @prefix : <http://org.clarkparsia.dcfoodie/model#> .
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+      <http://data.example.com/locations/018> a :Restaurant ;
+      	rdfs:label "Blacksait Restaurant" , "Blacksalt Restaurant" ;
+      	:hasWebsite <http://www.blacksaltrestaurant.com/> ;
+      	:city "Washington" ;
+      	:cuisine "American" ;
+      	:phone "202.342.9101" ;
+      	:restaurantName "Blacksait Restaurant" ;
+      	:state "DC" ;
+      	:streetAddress "4883 MacArthur Blvd" ;
+      	:zipcode "20007"^^xsd:integer .
+      ```
+      
+      We need to tell Stardog to remove the offending triples. This is easy enough to do with the following query using the `DELETE` keyword.
+        
+      ``` auto
+      DELETE DATA
+      { 
+        <http://data.example.com/locations/018> 
+           rdfs:label 'Blacksait Restaurant' ;
+           :restaurantName 'Blacksait Restaurant' .
+      }
+      ```
+      
+      Run our clean up query and we see it succeeds.
+      
+      ``` auto
+      $ stardog query dcfoodie delete.rq 
+      Update query processed successfully in 00:00:00.051.
+      ```
+      And now, when we check, we have the right data stored.
+      
+      ``` auto
+      $ stardog query -f turtle dcfoodie 'DESCRIBE <http://data.example.com/locations/018>' 
+      @prefix : <http://org.clarkparsia.dcfoodie/model#> .
+      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+      @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+      <http://data.example.com/locations/018> a :Restaurant ;
+      	rdfs:label "Blacksalt Restaurant" ;
+      	:hasWebsite <http://www.blacksaltrestaurant.com/> ;
+      	:city "Washington" ;
+      	:cuisine "American" ;
+      	:phone "202.342.9101" ;
+      	:restaurantName "Blacksalt Restaurant" ;
+      	:state "DC" ;
+      	:streetAddress "4883 MacArthur Blvd" ;
+      	:zipcode "20007"^^xsd:integer .
+      ```
+      
+      There is plenty more to SPARQL than what we have covered, but we've gone through quite a bit of the different use cases. At this level, it has all been about matching what's explicitly expressed in the graph. This is powerful and useful, but it is only part of what Stardog has to offer. We'll need to learn some more before we can take advantage of these extra features though.

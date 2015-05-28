@@ -1,0 +1,5 @@
+SELECT ?cuisine (COUNT(?cuisine) as ?cuisineCount)
+WHERE {
+  ?restaurant :cuisine ?cuisine .
+}
+GROUP BY ?cuisine

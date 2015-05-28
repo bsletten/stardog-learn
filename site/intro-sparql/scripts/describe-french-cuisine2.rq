@@ -1,0 +1,5 @@
+DESCRIBE ?restaurant
+WHERE {
+   ?restaurant :cuisine "French" ;
+      :zipcode "20001" .
+}

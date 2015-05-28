@@ -1,0 +1,4 @@
+ASK
+WHERE {
+  ?restaurant :cuisine "French" .
+}

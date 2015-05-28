@@ -1,0 +1,5 @@
+ASK
+WHERE {
+  ?restaurant :cuisine "French" ;
+    :zipcode "20001" .
+}
